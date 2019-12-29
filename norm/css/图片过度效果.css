@@ -1,0 +1,125 @@
+.box07{
+	width: 700px;
+	height: 700px;
+	/*background: rgba(100,210,230,0.5);*/
+	margin: 0px auto;
+
+	text-align: center;
+	perspective: 10000px;
+	transform-style: preserve-3d;
+	/*
+	 * transform-style: preserve-3d;使元素具有3D效果
+	 * transform-style: flat;元素不具备3D属性
+	 */
+	/*transform: rotateX(30deg) rotateY(-30deg);*/
+	transition: all 2s ease-in-out;
+	animation: r 6s linear infinite;
+}
+@keyframes r{
+	from{
+		transform: rotate3d(1,1,1,0deg);
+	}
+	to{
+		transform: rotate3d(1,1,1,360deg);
+	}
+}
+.box073,.box074,.box075,.box076,.box077,.box078,
+.box073R,.box074L,.box075T,.box076F,.box077Bo,.box078B{
+	width: 200px;
+	height: 200px;
+	position: absolute;
+	top: 250px;
+	left: 250px;
+	opacity: 0.8;
+	font-size: 30px;
+	color: white;
+	text-align: center;
+	transition: all 0.5s ease-in-out;
+}
+.box07 p{
+	padding-top: 50px;
+}
+.box07>.box078{
+	background-image: url(../img/a1.jpg);
+	transform: translateZ(100px);
+}
+.box07:hover>.box078{
+	transform: translateZ(250px);
+}
+.box07>.box077{
+	background-image: url(../img/a2.jpg);
+	transform:  rotateX(-90deg) translateZ(100px);
+}
+.box07:hover>.box077{
+	transform:  rotateX(-90deg) translateZ(250px);
+}
+.box07>.box076{
+	background-image: url(../img/a3.jpg);
+	transform:  translateZ(-100px);
+}
+.box07:hover>.box076{
+	transform:  translateZ(-250px);
+}
+.box07>.box075{
+	background-image: url(../img/a4.jpg);
+	transform:  rotateX(-90deg) translateZ(-100px);
+}
+.box07:hover>.box075{
+	transform:  rotateX(-90deg) translateZ(-250px);
+}
+.box07>.box074{
+	background-image: url(../img/a5.jpg);
+	transform:  rotateY(90deg) translateZ(-100px);
+}
+.box07:hover>.box074{
+	transform:  rotateY(90deg) translateZ(-250px);
+}
+.box07>.box073{
+	background-image: url(../img/a6.jpg);
+	transform:  rotateY(90deg) translateZ(100px);
+}
+.box07:hover>.box073{
+	transform:  rotateY(90deg) translateZ(250px);
+}
+
+.box07>.box078B{
+	background-image: url(../img/a3.jpg);
+	transform: translateZ(100px);
+}
+.box07>.box077Bo{
+	background-image: url(../img/a2.jpg);
+	transform:  rotateX(-90deg) translateZ(100px);
+}
+.box07>.box076F{
+	background-image: url(../img/a6.jpg);
+	transform:  translateZ(-100px);
+}
+.box07>.box075T{
+	background-image: url(../img/a5.jpg);
+	transform:  rotateX(-90deg) translateZ(-100px);
+}
+.box07>.box074L{
+	background-image: url(../img/a1.jpg);
+	transform:  rotateY(90deg) translateZ(-100px);
+}
+.box07>.box073R{
+	background-image: url(../img/a4.jpg);
+	transform:  rotateY(90deg) translateZ(100px);
+}
+.box073,.box074,.box075,.box076,.box077,.box078,
+.box073R,.box074L,.box075T,.box076F,.box077Bo,.box078B{
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;	
+}
+/*.box07:hover{
+	transform: rotate3d(1,1,1,360deg);
+}*/
+/*
+ * transition:
+ * linear:匀速
+ * ease:快——慢——快
+ * ease-in:逐渐加速直到结束
+ * ease-out:最快速度逐渐减速直达结束
+ * ease-in-out:大致等同于ease，但是加速没有ease来的快
+ */
