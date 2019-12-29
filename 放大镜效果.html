@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>放大镜效果</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .originDiv {
+            width: 320px;
+            height: 180px;
+            background-image: url(../imgs/scaleImg.jpg);
+            background-size: 320px 180px;
+            background-color: aqua;
+            position: absolute;
+            top: 50px;
+            left: 100px;
+        }
+
+        .originHk {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 0, 0.5);
+            display: none;
+            position: absolute;
+        }
+
+        .originDiv:hover {
+            cursor: move;
+        }
+
+        .enlargeDiv {
+            width: 150px;
+            height: 150px;
+            background-color: antiquewhite;
+            position: absolute;
+            top: 50px;
+            left: 450px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .enlargeImg {
+            width: 960px;
+            height: 540px;
+            position: absolute;
+            /* top: -100px;
+            left: -50px; */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="originDiv">
+        <div class="originHk"></div>
+    </div>
+
+    <div class="enlargeDiv">
+        <img src="../imgs/scaleImg.jpg" alt="" class="enlargeImg">
+    </div>
+
+    <script>
+        var originDiv = document.getElementsByClassName("originDiv")[0];
+        var originHk = document.getElementsByClassName("originHk")[0];
+        var enlargeDiv = document.getElementsByClassName("enlargeDiv")[0];
+        var enlargeImg = document.getElementsByClassName("enlargeImg")[0];
+        originDiv.addEventListener("mouseenter", function (e) {
+            originHk.style.display = "block";
+            enlargeDiv.style.display = "block";
+            originDiv.addEventListener("mousemove", function (e) {
+                var posX = e.x - originDiv.offsetLeft;
+                var posY = e.y - originDiv.offsetTop;
+
+                var x=posX-25;
+                var y=posY-25;
+                if(posX > 295){
+                    x= 270;
+                }else if( posX < 25){
+                    x=0;
+                }
+
+                if(posY > 155){
+                    y=130;
+                    console.log('1665623')
+                }else if( posY < 25){
+                    y=0;
+                }
+
+                originHk.style.left=x + "px";
+                originHk.style.top=y + "px";
+
+                enlargeImg.style.left= -x * 3 + "px";
+                enlargeImg.style.top= -y * 3 + "px";
+                // console.log(posX, posY);
+            });
+            console.log(e);
+
+            originDiv.addEventListener("mouseleave", function () {
+                originHk.style.display = "none";
+                enlargeDiv.style.display = "none";
+            });
+        });
+    </script>
+</body>
+
+</html>

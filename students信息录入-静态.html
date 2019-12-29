@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+    <style>
+        .stuMsgTab {
+            width: 60%;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        .stuMsgTab td {
+            text-align: center;
+        }
+
+        .inputBox {
+            width: 600px;
+            height: 320px;
+            margin: 0 auto;
+            /* background-color: antiquewhite; */
+            text-align: center;
+        }
+
+        .inputBox>label {
+            display: inline-block;
+            width: 120px;
+            padding-right: 15px;
+            text-align: right;
+            line-height: 40px;
+        }
+
+        tbody input {
+            width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="inputBox">
+        <!-- <form action="#"> -->
+        <h1>学生信息管理</h1>
+
+        <label for="xh">学号：</label>
+        <input type="text" name="xh" id="xh" />
+        <br>
+        <label for="xm">姓名：</label>
+        <input type="text" name="xm" id="xm" />
+        <br>
+        <label for="sex">性别：</label>
+        <input type="text" name="sex" id="sex" />
+        <br>
+        <label for="grade1">html+css成绩：</label>
+        <input type="text" name="grade1" id="grade1" />
+        <br>
+        <label for="grade2">js1成绩：</label>
+        <input type="text" name="grade2" id="grade2" />
+        <br>
+
+        <button id="addMsg">添加</button>
+        <input type="reset" id="resetMsg" value="重置">
+        <!-- </form> -->
+    </div>
+
+    <table class="stuMsgTab" border="1px solid black">
+
+        <thead>
+            <tr>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>html+css成绩</th>
+                <th>js1成绩</th>
+                <th>总成绩</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <script>
+        var tbodyNode = document.querySelector(".stuMsgTab tbody");
+        var xhInput = document.getElementById("xh");
+        var xmInput = document.getElementById("xm");
+        var sexInput = document.getElementById("sex");
+        var grade1Input = document.getElementById("grade1");
+        var grade2Input = document.getElementById("grade2");
+
+        var addMsg = document.getElementById("addMsg");
+
+        addMsg.onclick = function () {
+            //添加行
+            var addTr = document.createElement("tr");
+            tbodyNode.appendChild(addTr);
+            //添加学号单元格
+            var addTdXh = document.createElement("td");
+            addTdXh.innerHTML = xhInput.value;
+            addTr.appendChild(addTdXh);
+            //添加姓名单元格
+            var addTdXm = document.createElement("td");
+            addTdXm.innerHTML = xmInput.value;
+            addTr.appendChild(addTdXm);
+            //添加性别单元格
+            var addTdSex = document.createElement("td");
+            addTdSex.innerHTML = sexInput.value;
+            addTr.appendChild(addTdSex);
+            //添加html+css单元格
+            var addTdGrade1 = document.createElement("td");
+            addTdGrade1.innerHTML = grade1Input.value;
+            addTr.appendChild(addTdGrade1);
+            //添加js1单元格
+            var addTdGrade2 = document.createElement("td");
+            addTdGrade2.innerHTML = grade2Input.value;
+            addTr.appendChild(addTdGrade2);
+            //添加总成绩单元格
+            var addTdTotal = document.createElement("td");
+            addTdTotal.innerHTML = (parseInt(grade1Input.value) + parseInt(grade2Input.value));
+            addTr.appendChild(addTdTotal);
+            //添加操作单元格
+            var addTdOperate = document.createElement("td");
+            addTr.appendChild(addTdOperate);
+            var updateBtn = document.createElement("button");
+            updateBtn.innerHTML = "修改";
+            addTdOperate.appendChild(updateBtn);
+            var deleteBtn = document.createElement("button");
+            deleteBtn.innerHTML = "删除";
+            addTdOperate.appendChild(deleteBtn);
+
+            //实现 修改/保存 效果
+            var flag = true;
+            updateBtn.onclick = function () {
+                var curTr = updateBtn.parentNode.parentNode;
+                // console.log(curTr.childElementCount);
+                if (flag) {
+                    updateBtn.innerHTML = "保存";
+                    for (var i = 0; i < curTr.childElementCount - 2; i++) {  
+                        var oldData = curTr.children[i].innerHTML;
+                        // console.log(oldData);
+                        curTr.children[i].innerHTML = "";
+                        var inputUpdate = document.createElement("input");
+                        inputUpdate.value = oldData;
+                        curTr.children[i].appendChild(inputUpdate);
+                        // console.log(curTr.children[i].value);
+                    }
+                    flag=false;
+                }else{
+                    updateBtn.innerHTML = "修改";
+                    for (var i = 0; i < curTr.childElementCount - 2; i++) {
+                        var updateSj=curTr.children[i].children[0].value;
+                        curTr.children[i].children[0].remove();
+                        curTr.children[i].innerHTML=updateSj;
+                        // console.log( updateSj );
+                    }
+                    addTdTotal.innerHTML =  ( (parseInt(curTr.children[3].innerHTML)) + parseInt(curTr.children[4].innerHTML) );
+                    flag=true;
+                }
+            }
+
+            //实现点击删除效果
+            deleteBtn.onclick = function () {
+                deleteBtn.parentNode.parentNode.remove();
+            }
+
+            //重置信息resetMsg
+            var resetMsg = document.getElementById("resetMsg");
+            resetMsg.onclick = function () {
+                xhInput.value = "";
+                xmInput.value = "";
+                sexInput.value = "";
+                grade1Input.value = "";
+                grade2Input.value = "";
+            }
+
+        }
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>轮播图/事件冒泡</title>
+        <style>
+            .wrapper{
+                width: 400px;
+                height: 400px;
+                background-color: rebeccapurple
+            }
+            .content{
+                width: 300px;
+                height: 300px;
+                background-color: red;
+            }
+            .box{
+                width: 100px;
+                height: 100px;
+                background-color: #da2;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="content">
+                <div class="box"></div>
+            </div>
+        </div>
+        <div>
+            <pre>
+                ，你那次的后付款小姐扛不住基础部件警察学校
+                console.log("aaa");
+                <code>
+                    console.log("12345665");
+                </code>
+            </pre>
+            <p>
+                可能福克斯你看司法伏牛山
+                <mark>mnxs</mark>笔记本单击
+            </p>
+            <meter min="10" max="50" value="15"></meter>
+            <progress value="20" max="100"></progress>
+        </div>
+        <script>
+            var wrapper=document.getElementsByClassName("wrapper")[0];
+            var content=document.getElementsByClassName("content")[0];
+            var box=document.getElementsByClassName("box")[0];
+            wrapper.addEventListener("click",function(){
+                console.log("wrapper");
+            },true);
+            content.addEventListener("click",function(){
+                console.log("content");
+            },true);
+            box.addEventListener("click",function(){
+                console.log("box");
+            },true);
+        </script>
+
+
+        <!-- <ul>
+            <li>a1</li>
+            <li>a2</li>
+            <li>a3</li>
+            <li>a4</li>
+            <li>a5</li>
+        </ul>
+        <script>
+            var liCol=document.getElementsByClassName("li");
+            var len=liCol.length;
+            for(var i=0;i<len;i++){
+                (function(i){
+                    liCol[i].addEventListener("click",function(){
+                        console.log(i);
+                    },false);
+                }(i));
+            }
+        </script> -->
+    </body>
+</html>

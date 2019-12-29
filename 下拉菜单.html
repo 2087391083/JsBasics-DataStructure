@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+        .box{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .boxSon1{
+            width: 50px;
+            height: 20px;
+            background-color: palegreen;
+            overflow: hidden;
+        }
+
+        .menu{
+            position: relative;
+        }
+        .menuBtn{
+            width: 200px;
+            height: 50px;
+            background-color: yellow;
+        }
+        .submenu{
+            width: 400px;
+            height: 0;
+            position: absolute;
+            background-color: aquamarine;
+            left: 0;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- <div class="box">
+        <div class="boxSon1" id="boxSon1">
+            absj考试吧几分钟补偿金闪光灯精彩南昌市是从哦了己丑年新课程ihdsklhcx才开始看财奴饱经沧桑精彩库存快速扩大
+        </div>
+    </div>
+
+    <script>
+        var boxSon1=document.getElementById("boxSon1");
+        boxSon1.onclick=function(){
+            boxSon1.style.width=parseInt( window.getComputedStyle(boxSon1).width ) *5 + "px";
+            boxSon1.style.height=parseInt( window.getComputedStyle(boxSon1).height ) *5 + "px"; 
+        }
+    </script> -->
+
+    <div class="menu">
+        <div class="menuBtn">单击展开子菜单</div>
+        <div class="submenu">
+
+        </div>
+    </div>
+
+    <script>
+        var menuBtn=document.getElementsByClassName("menuBtn")[0];
+        var submenu=document.getElementsByClassName("submenu")[0];
+        
+        menuBtn.onmouseover=function (){
+            var submenuHeight=window.getComputedStyle(submenu).height;
+            var aa=0;
+            var timer=setInterval(function(){
+                // var a=parseInt( submenuHeight );
+                // console.log(a);
+                aa+=10;
+                submenu.style.height= aa + "px";
+                if(aa==400){
+                    clearInterval(timer);
+                }
+            },1);
+        }
+        menuBtn.onmouseout=function (){
+            var aa=400;
+            var timer=setInterval(function(){
+                aa-=10;
+                submenu.style.height= aa + "px";
+                if(aa==0){
+                    clearInterval(timer);
+                }
+            },1);
+        }
+    </script>
+</body>
+</html>

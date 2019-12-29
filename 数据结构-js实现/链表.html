@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>链表的封装</title>
+</head>
+
+<body>
+
+    <script>
+        class Node {
+            constructor(data) {
+                this.data = data;
+                this.next = null;
+            }
+        }
+        class LinkNode {
+            constructor() {
+                this.head = null;
+                this.length = 0;
+            }
+            // 思想：当头部head等于空时，直接将新增加的节点赋值给head；
+            //若头部不等于空的话，先将当前元素保存在current中，将current的前一个节点保存在parent中，
+            append(data) {
+                var node = new Node(data);
+                if (this.head == null) {
+                    this.head = node;
+                } else {
+                    var current = this.head;
+                    var parent = null;
+                    while (current != null) {
+                        parent = current;
+                        current = current.next;
+                    }
+                    parent.next = node;
+                }
+                this.length++;
+            }
+            size() {
+                return this.length;
+            }
+            isEmpty() {
+                if (this.length == 0) {
+                    return true;
+                }
+                return false;
+            }
+            //给定位置和值插入到指定的位置
+            //原理：先判断传入进来的位置是否合法，不合法直接return  false；
+            //合法的位置的话，创建新节点；再判断该列表是否为空，为空的话直接让head执行当前新添加的元素；
+            //否则判断是否是在0位置添加元素，在0位置加元素的话，需要先将新节点的next指向当前的head，再让head指向新节点；（注意顺序问题）
+            insert(pos, data) {
+                if (pos < 0 || pos > this.length) {
+                    return false;
+                }
+                let newnode = new Node(data);
+                if (this.head == null) {
+                    this.head = newnode;
+                } else {
+                    if (pos == 0) {
+                        newnode.next = this.head;
+                        this.head = newnode;
+                    } else {
+                        let parent = null;
+                        let current = this.head;
+                        let index = 0;
+                        while (index++ > pos) {
+                            parent = current;
+                            current = current.next;
+                            index++;
+                        }//寻找pos在链表中的位置
+                        // console.log(parent, current);
+                        newnode.next = current;
+                        parent.next = newnode;
+                    }
+                }
+                this.length++;
+            }
+            //查找指定元素的索引值
+            //原理：从前往后的顺序找，判断当前查找的元素的值是否等于传入进来的元素，是的话直接返回index；
+            //若寻找完都没有找到的话，直接return -1;表示没找到。
+            indexOf(ele) {
+                let index = 0;
+                let current = this.head;
+                let parent = null;
+                while (current != null) {
+                    if (current.data == ele) {
+                        return index;
+                    }
+                    parent = current;
+                    current = current.next;
+                    index++;
+
+                }
+                return -1;
+            }
+            //toString()
+            toString() {
+
+            }
+            //removeAt(pos)移除指定位置的某一项元素
+            //原理：先判定pos是否合法；
+            //判断传入的位置是否为起始位置，是起始位置的话，直接将this.head指向current.next即可；
+            //传入的值合法并且pos不是起始位置的话，对当前链表进行循环，找到传入位置对应的项，
+            //然后直接将前一向的next改为指向当前元素的后一个next即可；
+            removeAt(pos) {
+                if (pos < 0 || pos >= this.length) {
+                    return false;
+                }
+                let current = this.head;
+                if (pos == 0) {
+                    this.head = current.next;
+                } else {
+                    let parent = null;
+                    let index = 0;
+                    while (index++ > pos) {
+                        parent = current;
+                        current = current.next;
+                        index++;
+                    }
+                    parent.next = current.next;
+                }
+                this.length--;
+            }
+            //remove()移除列表中的指定的元素
+            remove(ele){
+                this.removeAt(this.indexOf(ele));
+            }
+        }
+        var linknode = new LinkNode();
+        linknode.append("aaa");
+        linknode.append("232");
+        linknode.append("阿吖");
+        console.log(linknode);
+        linknode.insert(0, "luoyi");
+        console.log(linknode);
+        console.log(linknode.size()); //4
+        console.log(linknode.indexOf("阿吖"));
+        linknode.removeAt(4);
+        console.log(linknode);
+        linknode.remove("luoyi");
+        console.log(linknode);
+    </script>
+    <!-- 
+- append(element)：向列表尾部添加一个新的项  +
+- insert(position, element)：向列表的特定位置插入一个新的项。 +
+- remove(element)：从列表中移除一项。
+- indexOf(element)：返回元素在列表中的索引。如果列表中没有该元素则返回-1。 +
+- removeAt(position)：从列表的特定位置移除一项。 +
+- isEmpty()：如果链表中不包含任何元素，返回true，如果链表长度大于0则返回false。+
+- size()：返回链表包含的元素个数。与数组的length属性类似。 +
+- toString()：由于列表项使用了Node类，就需要重写继承自JavaScript对象默认的toString方法，让其只输出元素的值。 -->
+
+</body>
+
+</html>

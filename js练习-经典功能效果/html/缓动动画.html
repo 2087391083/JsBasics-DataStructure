@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>缓动动画</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .btn{
+            width: 80px;
+            height: 50px;
+            background-color:bisque;
+            line-height: 50px;
+            font-size: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .bigBox{
+            width: 400px;
+            height: 0px;
+            background-color: skyblue;
+            /* transition: all 0.7s; */
+            /* 方法2 */
+        }
+    </style>
+</head>
+<body>
+    <div class="btn">显示</div>
+    <div class="bigBox"></div>
+
+    <script>
+        var btn=document.getElementsByClassName("btn")[0];
+        var bigBox=document.getElementsByClassName("bigBox")[0];
+        var flag=true;
+        var timer1,timer2;
+        btn.onclick=function (){
+            if(flag){
+                // bigBox.style.height="500px";
+
+                clearInterval(timer2);
+                timer1=setInterval(function (){
+                    var bigBoxH=parseInt( getComputedStyle(bigBox).height );
+                    bigBox.style.height = bigBoxH + (500 - bigBoxH)*0.7 + "px";
+                    if(bigBoxH>=500){
+                        clearInterval(timer1);
+                    }
+                },80);
+                btn.innerHTML="隐藏";
+                flag=false;
+            }else{
+                // bigBox.style.height="0px";
+
+                clearInterval(timer1);
+                timer2=setInterval(function (){
+                    var bigBoxH=parseInt( getComputedStyle(bigBox).height );
+                    bigBox.style.height = bigBoxH + (0 - bigBoxH)*0.7 + "px";
+                    if(bigBoxH==0){
+                        clearInterval(timer2);
+                    }
+                },80);
+                btn.innerHTML="显示";
+                flag=true;
+            }
+        }
+    </script>
+</body>
+</html>

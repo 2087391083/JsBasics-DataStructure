@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>单向循环链表相关方法的封装</title>
+</head>
+
+<body>
+
+    <script>
+        class Clist {
+            constructor(data) {
+                this.data = data;
+                this.next = null;
+            }
+        }
+        class LinkNode {
+            constructor() {
+                this.head = null;
+                this.length = 0;
+            }
+            append(data) {
+                var newnode = new Clist(data);
+                if (this.head == null) {
+                    this.head = newnode;
+                    newnode.next = this.head;
+                } else {
+                    let index = 0;
+                    let current = this.head;
+                    while (current.next != this.head) {
+                        current = current.next;
+                        index++;
+                    }
+                    current.next = newnode;
+                    newnode.next = this.head;
+                }
+                this.length++;
+            }
+            insert(pos, data) {
+                if (pos < 0 || pos > this.length) return false;
+                var newnode = new Clist(data);
+                if (pos == 0) {
+                    if (this.length == 1) {
+                        this.head = newnode;
+                        newnode.next = this.head;
+                    } else {
+                        let index = 0;
+                        let current = this.head;
+                        while (current.next != this.head) {
+                            current = current.next;
+                            index++;
+                        }
+                        newnode.next = this.head;
+                        current.next = newnode;
+                        this.head = newnode;
+                    }
+                } else if (pos == this.length) {
+                    let index = 0;
+                    let current = this.head;
+                    while (current.next != this.head) {
+                        current = current.next;
+                        index++;
+                    }
+                    current.next = newnode;
+                    newnode.next = this.head;
+                } else {
+                    let index = 0;
+                    let current = this.head;
+                    while (index++ < pos) {
+                        current = current.next;
+                        index++;
+                    }
+                    newnode.next = current.next;
+                    current.next = newnode;
+                }
+                this.length++;
+            }
+            removeAt(pos) {
+                if (pos < 0 || pos > this.length - 1) return false;
+                if (pos == 0) {
+                    if (this.length == 1) {
+                        this.head = null;
+                    } else {
+                        let current = this.head;
+                        while (current.next != this.head) {
+                            current = current.next;
+                        }
+                        current.next = this.head.next;
+                        this.head = this.head.next;
+                    }
+                } else if (pos == this.length - 1) {
+                    let current = this.head;
+                    let index = 0;
+                    while (index++ < pos - 1) {
+                        current = current.next;
+                    }
+                    current.next = this.head;
+                } else {
+                    let index = 0;
+                    let current = this.head;
+                    while (index++ < pos - 1) {//pos-1 查找的是当前索引位置的前一个元素
+                        current = current.next;
+                    }
+                    current.next = current.next.next;
+                }
+                this.length--;
+                return true;
+            }
+            indexOf(ele) {
+                let index = 0;
+                let current = this.head;
+                while (current.next != this.head) {
+                    if (current.data == ele) {
+                        return index;
+                    }
+                    index++;
+                    current = current.next;
+                }
+                return current.data == ele ? index : -1; //注意最后一个元素的判断
+            }
+            remove(ele) {
+                this.removeAt(this.indexOf(ele));
+            }
+            isEmpty() {
+                return this.length == 0;
+            }
+            size(){
+                return this.length;
+            }
+            toString() {
+                let current = this.head;
+                let result = current.data + "  ";
+                while (current.next != this.head) {
+                    current = current.next;
+                    result += current.data + "  ";
+                }
+                return result;
+            }
+        }
+        var linknode = new LinkNode();
+        linknode.append("223");
+        linknode.append("895");
+        console.log(linknode);
+        linknode.insert(0, "aaa");
+        linknode.insert(3, "bbb");
+        console.log(linknode);
+        console.log(linknode.toString());//aaa  223  895  bbb  
+        linknode.insert(2, "b");
+        console.log(linknode.toString());
+        linknode.removeAt(3);
+        console.log(linknode.toString());//aaa  223  b  bbb 
+        console.log(linknode.indexOf("bbb"));//3
+        linknode.remove("b");
+        console.log(linknode.toString());//aaa  223  bbb  
+        console.log(linknode.isEmpty());
+        console.log(linknode.size());
+    </script>
+</body>
+
+</html>
+<!-- 
+    append() +
+    insert() +
+    indexOf() +
+    removeAt(pos) +
+    remove(ele)+
+    toString() +
+    isEmpty()+
+    size()+
+ -->

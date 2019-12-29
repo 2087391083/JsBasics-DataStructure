@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../html/domtool.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        p {
+            margin-top: 10px;
+            background-color: antiquewhite;
+        }
+
+        .tdSelect{
+            background-color: aqua;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <button id="btn" class="btn">按钮</button> -->
+
+    <!-- <p>1</p>
+    <p>2</p>
+    <p>3</p>
+    <p>4</p>
+    <p>5</p>
+    <p>6</p>
+    <p>7</p>
+    <p>8</p>
+    <p>9</p>
+    <p>10</p>
+    <p>11</p>
+    <p>12</p>
+    <p>13</p>
+    <p>14</p>
+    <p>15</p>
+    <p>16</p>
+    <p>17</p>
+    <p>18</p>
+    <p>19</p>
+    <p>20</p> -->
+
+    <table class="tab01" border>
+        <tr>
+            <td>aaa1</td>
+            <td>aaa2</td>
+            <td>aaa3</td>
+            <td>aaa4</td>
+            <td>aaa5</td>
+            <td>aaa6</td>
+        </tr>
+        <tr>
+            <td>aaa1</td>
+            <td>aaa2</td>
+            <td>aaa3</td>
+            <td>aaa4</td>
+            <td>aaa5</td>
+            <td>aaa6</td>
+        </tr>
+        <tr>
+            <td>aaa1</td>
+            <td>aaa2</td>
+            <td>aaa3</td>
+            <td>aaa4</td>
+            <td>aaa5</td>
+            <td>aaa6</td>
+        </tr>
+        <tr>
+            <td>aaa1</td>
+            <td>aaa2</td>
+            <td>aaa3</td>
+            <td>aaa4</td>
+            <td>aaa5</td>
+            <td>aaa6</td>
+        </tr>
+        <tr>
+            <td>aaa1</td>
+            <td>aaa2</td>
+            <td>aaa3</td>
+            <td>aaa4</td>
+            <td>aaa5</td>
+            <td>aaa6</td>
+        </tr>
+    </table>
+
+    <br>
+
+    <table class="tab02" border>
+        <tr>
+            <td>aaa1</td>
+            <td>aaa2</td>
+            <td>aaa3</td>
+            <td>aaa4</td>
+            <td>aaa5</td>
+            <td>aaa6</td>
+        </tr>
+        <tr>
+            <td>aaa1</td>
+            <td>aaa2</td>
+            <td>aaa3</td>
+            <td>aaa4</td>
+            <td>aaa5</td>
+            <td>aaa6</td>
+        </tr>
+        <tr>
+            <td>aaa1</td>
+            <td>aaa2</td>
+            <td>aaa3</td>
+            <td>aaa4</td>
+            <td>aaa5</td>
+            <td>aaa6</td>
+        </tr>
+        <tr>
+            <td>aaa1</td>
+            <td>aaa2</td>
+            <td>aaa3</td>
+            <td>aaa4</td>
+            <td>aaa5</td>
+            <td>aaa6</td>
+        </tr>
+        <tr>
+            <td>aaa1</td>
+            <td>aaa2</td>
+            <td>aaa3</td>
+            <td>aaa4</td>
+            <td>aaa5</td>
+            <td>aaa6</td>
+        </tr>
+    </table>
+    <script>
+        var by=document.body;
+        var va=by.getAttribute();
+
+        var tab01=document.querySelectorAll(".tab01 td");
+        console.log(tab01[2].parentElement);
+        for(var i=0;i<tab01.length;i++){
+            (function (i){
+                tab01[i].onclick=function (){
+                    for(var j=0;j<tab01.length;j++){
+                        tab01[j].parentElement.className="";
+                    }
+                    tab01[i].parentElement.className="tdSelect";
+                }
+            })(i);
+        }
+
+        var tab02=document.querySelectorAll(".tab02 td");
+        var tab02Tr=document.querySelectorAll(".tab02 tr");
+        console.log(tab02Tr);
+        for(var i=0;i<tab02.length;i++){
+            (function (i){
+                tab02[i].onclick=function (){
+                    var faCh=tab02[i].parentElement.children;
+                    console.log(faCh);
+                    for(var j=0;j<faCh.length;j++){
+                        if(faCh[j]==tab02[i]){
+                            for(var a=0;a<tab02Tr.length;a++){
+                                console.log(tab02Tr[a].childElementCount);
+                                for(var b=0;b<tab02Tr[a].childElementCount;b++){
+                                    // console.log(a,b);
+                                    tab02Tr[a].children[b].className="";
+                                }
+                                tab02Tr[a].children[j].className="tdSelect";
+                            }
+                            // console.log(j);
+                        }
+                    }
+                    // var indexCur=tab02[i].indexSon(i);
+                    // console.log(indexCur);
+                    // for(var j=0;j<faCh.length;j++){
+                    //     for(var a=0;a<tab02Tr.length;a++){
+                    //         faCh[j].tab02Tr[a].className="tdSelect";
+                    //     }
+                    // }
+                    // console.log(faCh);
+                    // curIndex(tab02[i]);
+                }
+            })(i);
+        }
+
+        // var arr = [12, 56, 89, 15, 100, 23, 89, 10, 200];
+        // var pArr = document.getElementsByTagName("p");
+        // for (var i = 0; i < pArr.length; i++) {
+        //     (function (i) {
+        //         pArr[i].onclick = function () {
+        //             var index = Math.round(Math.random() * (arr.length - 1));
+        //             pArr[i].innerHTML = arr[index];
+        //             for (let j = 0; j < pArr.length; j++) {
+        //                 if (i != j) {
+        //                     var r = Math.round(Math.random() * 255);
+        //                     var g = Math.round(Math.random() * 255);
+        //                     var b = Math.round(Math.random() * 255);
+        //                     pArr[j].style.backgroundColor = `rgb(${r},${g},${b})`;
+        //                 }
+        //             }
+        //         }
+        //     })(i);
+        // }
+
+
+        // var btn=document.getElementsByClassName("bth")[0];
+        // btn.onclick=function(){
+        //     var r=Math.round(Math.random()*255);
+        //     var g=Math.round(Math.random()*255);
+        //     var b=Math.round(Math.random()*255);
+        //     var by=document.getElementsByTagName("body")[0];
+        //     by.style.backgroundColor=`rgb(${r},${g},${b})`;
+        // }
+    </script>
+</body>
+
+</html>

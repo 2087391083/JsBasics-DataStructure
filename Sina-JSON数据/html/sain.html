@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>新浪数据</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .data {
+            border: 1px solid black;
+            width: 100%;
+        }
+        .data>p{
+            line-height: 27px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- https://open.weibo.com/wiki/2/statuses/home_timeline -->
+    
+    <div class="data">
+
+    </div>
+    <script src="../html/data.js"></script>
+    <script>
+        console.log(data);
+        
+        let {ad, advertises, has_unread, hasvisible, interval, max_id, max_id_str, next_cursor, next_cursor_str, previous_cursor, previous_cursor_str, since_id, since_id_str, statuses, total_number, uve_blank } = data;
+        var dataDiv=document.getElementsByClassName("data")[0];
+        for(var prop in data){
+            if(typeof(data[prop])=="string" || typeof(data[prop])=="number" || typeof(data[prop])=="boolean" || typeof(data[prop])=="null" || typeof(data[prop])=="undefined"){
+                var propName=document.createElement("p");
+                propName.innerHTML=prop+"  :  "+data[prop];
+                dataDiv.appendChild(propName);
+            }else{
+                for(var i=0;i<data[prop].length;i++){
+                    if( ( typeof(data[prop][i]) != "object" ) || ( typeof(data[prop][i]) != "function" ) ){
+                        for(var propName2 in data[prop][i]){
+                            if(typeof(data[prop][i][propName2])=="string" || typeof(data[prop][i][propName2])=="number" || typeof(data[prop][i][propName2])=="boolean" || typeof(data[prop][i][propName2])=="null" || typeof(data[prop][i][propName2])=="undefined"){
+                                var propName22=document.createElement("p");
+                                propName22.innerHTML=propName2 + " : " + data[prop][i][propName2];
+                                dataDiv.appendChild(propName22);
+                            }
+                        }
+                    }
+                }
+            } 
+        }
+
+        let [{attitudes_count,biz_feature,can_edit,comment_manage_info,comments_count,content_auth,created_at,darwin_tags,favorited,geo,gif_ids,hasActionTypeCard,hide_flag,hot_weibo_tags,id,idstr,in_reply_to_screen_name,in_reply_to_status_id,in_reply_to_user_id,isLongText,is_paid,retweeted_status,user}]=statuses;
+        for(var statuseIndex=0;i<statuses.length;i++){
+            for(var statusesProp in statuses[statuseIndex]){
+                if(typeof(statuses[statuseIndex][statusesProp])=="string" || typeof(statuses[statuseIndex][statusesProp])=="number" || typeof(statuses[statuseIndex][statusesProp])=="boolean" || typeof(statuses[statuseIndex][statusesProp])=="null" || typeof(statuses[statuseIndex][statusesProp])=="undefined"){
+                    var propName23=document.createElement("p");
+                    propName23.innerHTML=statusesProp + " : " + statuses[statuseIndex][statusesProp];
+                    dataDiv.appendChild(propName23);
+                }
+            }
+        }
+
+        let {avatar_hd,avatar_large,bi_followers_count,city,cover_image,description}=user;
+        var avatar_hd_Element=document.createElement("p");
+        avatar_hd_Element.innerHTML= "avatar_hd : " + avatar_hd;
+        dataDiv.appendChild(avatar_hd_Element);
+
+        var cover_image_Element=document.createElement("img");
+        cover_image_Element.src=cover_image;
+        console.log(cover_image_Element.src);
+        dataDiv.appendChild(cover_image_Element);
+
+    </script>
+</body>
+
+</html>

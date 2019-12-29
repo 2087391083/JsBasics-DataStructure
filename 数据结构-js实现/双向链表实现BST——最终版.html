@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>双向链表实现BST</title>
+</head>
+
+<body>
+    <script>
+        class BSTNode {
+            constructor(data) {
+                this.right = null;
+                this.data = data;
+                this.left = null;
+                this.parent = null;
+            }
+        }
+        class BST {
+            constructor() {
+                this.root = null;
+                this.length = 0;
+            }
+            //追加二叉树结点
+            append(data) {
+                var newnode = new BSTNode(data);
+                if (this.root == null) {
+                    this.root = newnode;
+                } else {
+                    this.appendNode(this.root, newnode);
+                }
+                this.length++;
+            }
+            appendNode(node, newnode) {
+                if (node.data > newnode.data) {
+                    if (node.left == null) {
+                        node.left = newnode;
+                        newnode.parent = node;
+                    } else {
+                        this.appendNode(node.left, newnode);
+                    }
+                } else {
+                    if (node.right == null) {
+                        node.right = newnode;
+                        newnode.parent = node;
+                    } else {
+                        this.appendNode(node.right, newnode);
+                    }
+                }
+            }
+            //找二叉树中值最小的节点
+            getMin() {
+                let current = this.root;
+                while (current.left != null) {
+                    current = current.left;
+                }
+                return current;
+            }
+            //找二叉树中值最大的节点
+            getMax() {
+                let current = this.root;
+                while (current.right != null) {
+                    current = current.right;
+                }
+                return current;
+            }
+            //搜索一个元素是否在二叉树中，存在的话返回该节点，不存在返回-1
+            search(ele) {
+                let current = this.root;
+                let isLeft = false;
+                while (current != null) {
+                    if (current.data > ele) {
+                        current = current.left;
+                        isLeft = true;
+                    } else if (current.data < ele) {
+                        current = current.right;
+                        isLeft = false;
+                    } else {
+                        return [current, isLeft];
+                    }
+                }
+                return [-1];
+            }
+            //先序遍历
+            beforeErgodic() {
+                this.bErgodic(this.root);
+            }
+            bErgodic(node) {
+                if (node == null) {
+                    return;
+                }
+                console.log(node.data);
+                this.bErgodic(node.left);
+                this.bErgodic(node.right);
+            }
+            //中序遍历
+            centerErgodic() {
+                this.cErgodic(this.root);
+            }
+            cErgodic(node) {
+                if (node == null) {
+                    return;
+                }
+                this.cErgodic(node.left);
+                console.log(node.data);
+                this.cErgodic(node.right);
+            }
+            //后序遍历
+            afterErgodic() {
+                this.aErgodic(this.root);
+            }
+            aErgodic(node) {
+                if (node == null) {
+                    return;
+                }
+                this.aErgodic(node.left);
+                this.aErgodic(node.right);
+                console.log(node.data);
+            }
+            //删除节点
+            //叶子节点和只有一个根节点的树删除 +
+            //只有一个叶子节点   左节点为空   +
+            //右节点为空    +
+            //删除有两个子节点的节点 +
+            removeAt(ele) {
+                let delEle = this.search(ele)[0];
+                let isLeft = this.search(ele)[1];
+                if (delEle == -1) return false;
+                if (delEle.left == null && delEle.right == null) {
+                    if (delEle.parent == null) {
+                        this.root = null;
+                    } else {
+                        if (isLeft) {
+                            delEle.parent.left = null;
+                        } else {
+                            delEle.parent.right = null;
+                        }
+                    }
+                } else if (delEle.left != null && delEle.right == null) {
+                    delEle.parent.left = delEle.left;
+                    delEle.left.parent = delEle.left;
+                } else if (delEle.left == null && delEle.right != null) {
+                    delEle.parent.right = delEle.right;
+                    delEle.right.parent = delEle.parent;
+                } else {//删除有两个子节点的节点
+                    let succeed = this.succeedNode(delEle, isLeft);
+                    if (succeed == this.root) {
+                        succeed.left = this.root.left;
+                        succeed.right = this.root.right;
+                        this.root.left.parent = succeed;
+                        this.root.right.parent = succeed;
+                        this.root = succeed;
+                    } else if (isLeft) {
+                        succeed.parent.left = succeed.right;
+                        succeed.right.parent = succeed.parent;
+                        succeed.left = delEle.left;
+                        succeed.right = delEle.right;
+                        succeed.parent = delEle.parent;
+                        delEle.parent.left = succeed;
+                        delEle.left.parent = succeed;
+                        delEle.right.parent = succeed;
+                    } else {
+                        succeed.parent.left = succeed.right;
+                        succeed.right.parent = succeed.parent;
+                        succeed.left = delEle.left;
+                        succeed.right = delEle.right;
+                        succeed.parent = delEle.parent;
+                        delEle.parent.right = succeed;
+                        delEle.left.parent = succeed;
+                        delEle.right.parent = succeed;
+                    }
+                    console.log("删除节点的后继元素：", succeed.data);
+                }
+                this.length--;
+            }
+            //找删除节点的后继节点
+            succeedNode(delEle) {
+                let current;
+                current = delEle.right;
+                while (current.left != null) {
+                    current = current.left;
+                }
+                return current;
+            }
+        }
+        var bst = new BST();
+        bst.append(45);
+        bst.append(89);
+        bst.append(40);
+        bst.append(35);
+        bst.append(42);
+        bst.append(41);
+        bst.append(41.5);
+        bst.append(50);
+        bst.append(46);
+        bst.append(39);
+        bst.append(90);
+        bst.append(89.5);
+        bst.append(89.7);
+        console.log(bst);
+
+        console.log(bst.getMax());
+
+        console.log(bst.search(400)[0]);
+
+        console.log("先序遍历：");
+        bst.beforeErgodic();
+        console.log("中序遍历：");
+        bst.centerErgodic();
+        console.log("后序遍历：");
+        bst.afterErgodic();
+
+        bst.removeAt(89);
+        console.log(bst);
+    </script>
+</body>
+
+</html>

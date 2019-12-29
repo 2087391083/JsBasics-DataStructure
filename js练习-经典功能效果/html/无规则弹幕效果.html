@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>无规则弹幕效果</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .msg {
+            width: 750px;
+            height: 500px;
+            background-color: antiquewhite;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+        }
+
+        .msg>img {
+            width: 750px;
+            height: 500px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .comment {
+            width: 100%;
+            height: 50px;
+            padding-top: 20px;
+            font-size: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #userComment {
+            width: 300px;
+            height: 30px;
+        }
+
+        .subComment {
+            width: 80px;
+            height: 33px;
+            cursor: pointer;
+        }
+
+        .barrage {
+            width: 100%;
+            height: 180px;
+            /* background-color: aquamarine; */
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="msg">
+        <img src="../imgs/lunboimg/1 (5).jpg" alt="">
+        <div class="barrage">
+        </div>
+    </div>
+    <div class="comment">
+        <input type="text" id="userComment" />
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="subComment">发表评论</button>
+    </div>
+    <script>
+        let msg = document.getElementsByClassName("msg")[0];
+        let userComment = document.getElementById("userComment");
+        let subComment = document.getElementsByClassName("subComment")[0];
+        let barrage=document.getElementsByClassName("barrage")[0];
+        var subConut=0;
+        // class BarCom{
+        //     constructor(com){
+        //         this.subConut=0;
+        //         this.com=com;
+        //     }
+        //     createBarrage(){
+        //         this.subConut++;
+        //     }
+        // }
+        console.log(subConut);
+        function createBarrage(com){
+            subConut++;
+            let appendNode=document.createElement("div");
+            barrage.append(appendNode);
+            appendNode.id=subConut;
+            appendNode.innerHTML=com;
+            let top=Math.ceil(Math.random()*180);
+            fun(subConut,750,top);
+        }
+        function fun(count,n,top){
+            if(n>0){
+                n--;
+                let node=document.getElementById(count);
+                node.style.position="absolute";
+                node.style.left=n+"px";
+                node.style.top=top+"px";
+                setTimeout(fun,10,count,n);
+            }else if(n==0){
+                let node=document.getElementById(count);
+                node.remove();
+            }
+        }
+        subComment.onclick=function(){
+            createBarrage(userComment.value);
+        }
+    </script>
+</body>
+
+</html>

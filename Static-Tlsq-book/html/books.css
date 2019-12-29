@@ -1,0 +1,254 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+body{
+font: 400 14px/1.8 Helvetica,Arial,"PingFang SC","Microsoft Yahei","微软雅黑","Hiragino Sans GB","Microsoft Sans Serif","WenQuanYi Micro Hei","sans-serif";
+}
+.logo {
+    padding-top: 15px;
+}
+.activeLi {
+    font-size: 16px;
+}
+a.logo{
+    padding: 0;
+}
+a.logo>img{
+    width: 200px;
+    height: 50px;
+    padding-top: 10px;
+    padding-right: 15px;
+}
+
+nav.myNav {
+    background-color: #3b5998;
+    border-radius: 0;
+    margin-bottom: 0px;
+    border: 0;
+}
+
+ul.ulNav>li {
+    height: 64px;
+}
+
+ul.ulNav>li>a {
+    padding: 0 30px;
+    height: 64px;
+    line-height: 64px;
+    color: white;
+    font-size: 18px;
+}
+
+ul.ulNav>li>a:hover {
+    background-color: #344e86;
+}
+
+
+input.navInput {
+    margin-top: 7px;
+}
+
+.navForm>.form-group>input.navInput{
+    width: 250px;
+}
+
+.myNav .ulNav>li>a{
+    color: white;
+}
+.myNav .ulNav>li>a:hover{
+    color: white;
+    background-color: #23527c;
+}
+.myNav>.btnmenu{
+    background-color: transparent;
+    border: 0;
+    color: #337ab7;
+    font-size: 20px;
+    outline: none;
+}
+@media (max-width: 768px) {
+    .Nav>.myNav{
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.btnmenu.active,
+.btnmenu:active{
+    background-color: transparent;
+    border-color: transparent;
+}
+.btnmenu.active, .btnmenu:active {
+    box-shadow: none;
+}
+.btn-default {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+
+/* 02部分 */
+.sec02{
+    padding: 40px 0;
+}
+.sec02>div.row{
+    margin-left: 0;
+    margin-right: 0;
+}
+.sec02 li{
+    list-style: none;
+    display: inline-block;
+    margin-right: 20px;
+    border-radius: 0 25px 25px 0;
+    height: 40px;
+}
+
+.sec02 li:hover{
+    box-shadow: rgba(0, 0, 0, 0.1) 2px 4px 14px 0px;
+}
+
+.sec02 li>a{
+    color: rgb(160, 112, 35);;
+    display: inline-block;
+    padding: 5px 25px 5px 10px;
+    text-decoration: none;
+    background-color: antiquewhite;
+    border: 1px solid rgb(252, 248, 227);;
+    border-radius: 0 25px 25px 0;
+    overflow: hidden;
+    font-size: 16px;
+    box-shadow: 1px 1px 1px rgb(251, 204, 102),
+                2px 0px 2px rgb(251, 204, 102),
+                1px 2px 2px rgb(251, 204, 102),
+                1px 1px 1px rgb(251, 204, 102);
+}
+
+/* 03部分 */
+.sec03{
+    padding: 0;
+}
+.sec03>.row>.booksMsg{
+    padding:0;
+}
+.sec03>.row{
+    margin: 0 0 40px 0;
+}
+.sec03Ul{
+    border-bottom-color: rgb(165, 165, 165);
+    padding-right: 0;
+    margin-bottom: 40px;
+}
+.sec03Ul>li>a{
+    font-size: 16px;
+    color: black;
+}
+.sec03Ul>li.active>a,
+.sec03Ul>li.active>a:hover{
+    border-top-color: rgb(165, 165, 165);
+    border-left-color: rgb(165, 165, 165);
+    border-right-color: rgb(165, 165, 165);
+}
+.sec03Ul>li>a {
+    margin-right: 5px;
+}
+.sec03Ul>li:last-child>a {
+    margin-right: 0;
+}
+.sec03Ul>li>a:hover {
+    background: #dfe6f3;
+    border-color: transparent;
+    border: 1px solid #a5a5a5;
+}
+.sec03Content{
+    padding: 0;
+}
+.sec03Content>.thumbnail{
+    width: 160px;
+    height: 270px;
+    display: inline-block;
+    margin-right: 10px;
+    border: 0;
+}
+.sec03Content>.thumbnail>img{
+    width: 116px;
+}
+.rightList>.list-group>a{
+    font-size: 16px;
+}
+.allBook>.active{
+    background-color:  #337ab7;
+    border-radius: 0;
+}
+.rightList>.list-group>a{
+    border-color: rgb(165, 165, 165);
+}
+.rightList>.list-group>a:hover{
+    background: #dfe6f3;
+}
+.rightList>.list-group>a:first-child:hover{
+    background-color:  #337ab7;
+}
+.rightList .list-group-item:first-child,
+.allBook>.active:first-child{
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+.allBook>.list-group-item:last-child {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.pageCh{
+    margin: 0 auto;
+}
+.pageCh>ul>li.active>a{
+    border-radius: 4px;
+    background-color: white;
+    color: rgb(51, 122, 183);
+    border: 1px solid grey;
+
+}
+.pageCh>ul>li.active>a:hover{
+    color: rgb(51, 122, 183);
+    background-color: white;
+}
+.pageCh>ul>li>a{
+    color: black;
+    margin: 0 2px;
+    border: 0;
+    border-radius: 4px;
+}
+.pageCh>ul>li:nth-child(7)>a:hover{
+    cursor: default;
+    background-color: white;
+}
+
+
+
+.sec04{
+    background-color: #f2f2f2;
+    padding: 20px 0 30px;
+}
+.sec04Ul>ul>li{
+    list-style: none;
+    display: inline-block;
+    width: 80px;
+}
+.sec04Ul>ul>li>a{
+    text-decoration: none;
+}
+.sec04Ul>ul{
+    text-align: right;
+}
+.sec04>.container>.row{
+    padding: 0 0 5px;
+}
+.bottom{
+    padding: 0;
+    color: rgb(204, 204, 204);;
+}
+.bottom>div{
+    display: inline-block;
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>活动广告弹性效果</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .adv {
+            width: 350px;
+            height: 300px;
+            background-color: greenyellow;
+            position: fixed;
+            right: 0;
+            bottom: -350px;
+        }
+
+        .adv>span {
+            display: inline-block;
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="adv">
+        <span>关闭</span>
+        content
+    </div>
+    <script>
+        var adv = document.getElementsByClassName("adv")[0];
+        var advClose = document.querySelector(".adv>span");
+        var timer1;
+        var timer = setTimeout(function () {
+            timer1 = animateAdv(0);
+        }, 2000);
+        advClose.onclick = function () {
+            adv.style.display = "none";
+            adv.style.bottom = "-350px";
+            clearInterval(timer);
+            setTimeout(function () {
+                adv.style.display = "block";
+                animateAdv(0);
+            }, 1000);
+        };
+        function animateAdv(result) {
+            var animateAdvTimer = setInterval(function () {
+                var advH = parseInt(getComputedStyle(adv).bottom);
+                adv.style.bottom = advH + (result - advH) * 0.7 + "px";
+                if (advH >= result) {
+                    clearInterval(animateAdvTimer);
+                }
+            }, 100);
+            return animateAdvTimer;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../html/tools.js"></script>
+    <title>app底部导航</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            height: 100%;
+            width: 100%;
+        }
+
+        .content {
+            width: 100%;
+            height: 100%;
+            background-color: aquamarine;
+        }
+
+        .nav {
+            width: 100%;
+            height: 80px;
+            background-color: gainsboro;
+            display: flex;
+            justify-content: center;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+        }
+
+        .nav>ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav>ul>li {
+            width: 150px;
+            list-style: none;
+            display: inline-block;
+            height: 80px;
+            line-height: 80px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .content {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .content img {
+            width: 100%;
+            height: 650px;
+        }
+
+        .content>div {
+            width: 100%;
+            height: 650px;
+            background-color: rgb(255, 255, 209);
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+
+        div.show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <div class="show">
+            <img src="../imgs/1111.jpg" alt="">
+        </div>
+        <div>
+            <img src="../imgs/1 (1).jpg" alt="">
+        </div>
+        <div>
+            <img src="../imgs/1 (2).jpg" alt="">
+        </div>
+        <div>
+            <img src="../imgs/1 (3).jpg" alt="">
+        </div>
+        <div>
+            <img src="../imgs/1 (4).jpg" alt="">
+        </div>
+    </div>
+
+    <div class="nav">
+        <ul>
+            <li style="background-color: yellow">菜单1</li>
+            <li>菜单2</li>
+            <li>菜单3</li>
+            <li>菜单4</li>
+            <li>菜单5</li>
+        </ul>
+    </div>
+    <script>
+        var content = document.getElementsByClassName("content")[0];
+        var nav = document.getElementsByClassName("nav")[0];
+        var navLi = document.querySelectorAll(".nav li");
+        nav.addEventListener("click", function (e) {
+            for (var i = 0; i < navLi.length; i++) {
+                if (e.target == navLi[i]) {
+                    for (var i = 0; i < navLi.length; i++) {
+                        navLi[i].style.backgroundColor = "gainsboro";
+                        content.children[i].style.display = "none";
+                    }
+                    var index = e.target.curParentIndex();
+                    navLi[index].style.backgroundColor = "yellow";
+                    content.children[index].style.display = "block";
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

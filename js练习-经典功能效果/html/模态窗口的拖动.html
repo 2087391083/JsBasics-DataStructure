@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>模态窗口的拖动</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            height: 100%;
+            width: 100%;
+        }
+
+        .btn {
+            width: 180px;
+            height: 80px;
+            text-align: center;
+            line-height: 80px;
+            font-size: 20px;
+            background-color: sandybrown;
+            outline: none;
+            border: none;
+            margin: 200px 500px;
+            cursor: pointer;
+        }
+
+        .popup {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* width: 1350px;
+            height: 640px; */
+            width: 100%;
+            height: 100%;
+            background-color: rgba(251, 250, 200, 0.7);
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+
+        .loginMsg {
+            width: 450px;
+            height: 320px;
+            background-color: bisque;
+            border-radius: 10px;
+            text-align: right;
+            position: absolute;
+            left: 380px;
+            top: 130px;
+        }
+
+        .loginMsg>span {
+            width: 20px;
+            height: 20px;
+            font-size: 25px;
+            padding-right: 20px;
+            cursor: pointer;
+        }
+
+        .loginMsgTop {
+            display: inline-block;
+            width: 80%;
+            height: 45px;
+            background-color: gainsboro;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="btn">点击即可登录</button>
+    <div class="popup">
+        <div class="loginMsg">
+            <div class="loginMsgTop"></div>
+            <span class="closeBtn">关闭</span>
+        </div>
+    </div>
+    <script>
+        var btn = document.getElementsByClassName("btn")[0];
+        var popup = document.getElementsByClassName("popup")[0];//popup
+        var closeBtn = document.getElementsByClassName("closeBtn")[0];
+        var loginMsg = document.getElementsByClassName("loginMsg")[0];
+        var loginMsgTop = document.getElementsByClassName("loginMsgTop")[0];
+        btn.onclick = function () {
+            popup.style.display = "flex";
+        }
+        closeBtn.onclick = function () {
+            popup.style.display = "none";
+        }
+        loginMsgTop.addEventListener("mousedown", function (e) {
+            var xx = e.clientX;
+            var yy = e.clientY;
+            var loginMsgLeft = parseInt(getComputedStyle(loginMsg).left);
+            var loginMsgTop = parseInt(getComputedStyle(loginMsg).top);
+            document.onmousemove = function (e) {
+                var mx = e.clientX - xx;
+                var my = e.clientY - yy;
+                var x = mx + loginMsgLeft;
+                var y = my + loginMsgTop;
+                if (x <= 0) {
+                    x = 0;
+                } else if (x >= document.body.clientWidth-450) {
+                    x = document.body.clientWidth-450;
+                    console.log(document.body.clientWidth)
+                }
+                if (y <= 0) {
+                    y = 0;
+                } else if (y >= document.body.clientHeight-145) {
+                    y = document.body.clientHeight-145;
+                }
+                loginMsg.style.left = x + "px";
+                loginMsg.style.top = y + "px";
+            }
+        });
+        document.addEventListener("mouseup", function () {
+            document.onmousemove = null;
+        });
+
+
+    </script>
+
+</html>

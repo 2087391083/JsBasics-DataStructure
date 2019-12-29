@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>新浪微博</title>
+    <script src="../html/tools.js"></script>
+    <script src="../DataJs/sina_data.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .news {
+            width: 900px;
+            display: flex;
+            /* background-color: aqua; */
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .imgLeft {
+            width: 300px;
+            height: 180px;
+            padding-right: 20px;
+        }
+
+        .newContent {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+
+        }
+
+        .newContent>h3 {
+            width: 100%;
+            height: 78px;
+            overflow: hidden;
+        }
+
+        .newbox {
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 45px;
+            width: 100%;
+        }
+
+        .usermsg {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            margin-top: 15px;
+            align-items: center;
+        }
+
+        .userTx {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 20px;
+            background-color: palegreen;
+        }
+
+        .username {
+            display: inline-block;
+            height: 40px;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="news">
+    </div>
+    <script>
+        let users = data.statuses;
+        var news = document.getElementsByClassName("news")[0];
+        // let [{annotations,attitudes_count,biz_feature,bmiddle_pic,can_edit,cardid,comment_manage_info,comments_count,content_auth,created_at,darwin_tags,favorited,geo,gif_ids,hasActionTypeCard,hide_flag,hot_weibo_tags,id,idstr,in_reply_to_screen_name,in_reply_to_status_id,in_reply_to_user_id,isLongText,is_paid,is_show_bulletin,mblog_vip_type,mblogtype,mid,mlevel,}]=data.statuses;
+        console.log(data);
+        console.log(users);
+        for (let i = 0; i < users.length; i++) {
+            let newBox = CreateNode("div", "", news);
+            newBox.className = "newbox";
+            let boxLeft;
+            if (users[i].user.cover_image_phone != undefined) {
+                boxLeft = CreateNode("img", users[i].user.cover_image_phone, newBox);
+                boxLeft.className = "imgLeft";
+            }
+            let boxRight = CreateNode("div", "", newBox);
+            boxRight.className = "newContent";
+            let newTitle = CreateNode("h3", users[i].text, boxRight);
+            let userMsg = CreateNode("div", "", boxRight);
+            userMsg.className = "usermsg";
+            let userMsgL = CreateNode("div", "", userMsg);
+            let tx = CreateNode("div", "", userMsgL);
+            tx.className = "userTx";
+            tx.style.backgroundImage = `url(${users[i].user.profile_image_url})`;
+            let username = CreateNode("span", users[i].user.name, userMsgL);
+            username.className = "username";
+
+
+            CreateNode("span",CreateTime(i),userMsgL);
+
+            let userMsgR = CreateNode("div", "", userMsg);
+            CreateNode("span", "转发数：", userMsgR);
+            CreateNode("span", users[i].attitudes_count, userMsgR);
+            CreateNode("span", `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;消息数：`, userMsgR);
+            CreateNode("span", users[i].comments_count, userMsgR);
+            CreateNode("span", `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;评论数：`, userMsgR);
+            CreateNode("span", users[i].content_auth, userMsgR);
+        }
+        function CreateTime(i){
+            let sysTime=new Date().getTime();
+            let createtime=new Date(users[i].user.created_at).getTime();
+            let abstime=sysTime-createtime;
+            let data=new Date(users[i].user.created_at).getFullYear() + "年" +new Date(users[i].user.created_at).getMonth() + "月" + new Date(users[i].user.created_at).getDate() + "日";
+            if(abstime>0 && abstime<=60*1000){
+                return "1分钟前";
+            }else if(abstime>60*1000 && abstime<60*2*1000){
+                return "2分钟前";
+            }else if(abstime>60*2*1000 && abstime<=30*24*60*1000){
+                return `一个月前`;
+            }else{
+                return data;
+            }
+        }
+
+    </script>
+</body>
+
+</html>

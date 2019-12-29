@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>放大镜效果</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .initImg {
+            width: 400px;
+            height: 250px;
+            background-image: url('../imgs/lunboimg/1 (5).jpg');
+            background-size: 400px 250px;
+            background-repeat: no-repeat;
+            position: absolute;
+            top: 50px;
+            left: 180px;
+        }
+
+        .initImg>img {
+            width: 400px;
+            height: 250px;
+        }
+
+        .smallBox {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 0, 0.5);
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 0;
+            cursor: move;
+        }
+
+        .scaleImg {
+            width: 250px;
+            height: 250px;
+            background-color: antiquewhite;
+            position: absolute;
+            left: 600px;
+            top: 50px;
+            overflow: hidden;
+            display: none;
+        }
+
+        #img1 {
+            width: 2000px;
+            height: 1250px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="initImg">
+        <div class="smallBox"></div>
+    </div>
+    <div class="scaleImg">
+        <img src="../imgs/lunboimg/1 (5).jpg" id="img1" alt="">
+    </div>
+    <script>
+        var initImg = document.getElementsByClassName("initImg")[0];
+        var smallBox = document.getElementsByClassName("smallBox")[0];
+        var scaleImg = document.getElementsByClassName("scaleImg")[0];
+        var img1=document.getElementById("img1");
+        initImg.onmouseenter = function (e) {
+            var enterX = e.clientX;
+            var enterY = e.clientY;
+            smallBox.style.display="block";
+            scaleImg.style.display="block";
+            initImg.onmousemove = function (e) {
+                var smallBoxL = parseInt(getComputedStyle(initImg).left);
+                var smallBoxT = parseInt(getComputedStyle(initImg).top);
+                var moveX = e.x - smallBoxL;
+                var moveY = e.y - smallBoxT;
+                var x=moveX - 25;
+                var y=moveY - 25;
+                if(moveX<=25){
+                    x=0;
+                }else if(moveX>=375){
+                    x=350;
+                }
+                if(moveY<=25){
+                    y=0;
+                }else if(y>=200){
+                    y=200;
+                }
+                smallBox.style.left = x + "px";
+                smallBox.style.top = y + "px";
+                img1.style.left= - x * 5 + "px";
+                img1.style.top= - y * 5 + "px";
+
+            }
+        }
+        initImg.onmouseleave = function (e) {
+            smallBox.style.display="none";
+            scaleImg.style.display="none";
+            smallBox.onmousemove = null;
+        }
+    </script>
+</body>
+
+</html>

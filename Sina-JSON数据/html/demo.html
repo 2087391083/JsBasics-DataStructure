@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            height: 0;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            background-color: antiquewhite;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .ul01 {
+            width: 100%;
+            height: 100px;
+        }
+
+        .ul01>li {
+            list-style: none;
+            float: left;
+            height: 100px;
+        }
+
+        .ul01>li>img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .fa{
+            position: relative;
+        }
+        #menu {
+            display: inline-block;
+            width: 100px;
+            height: 50px;
+            background-color: aquamarine;
+        }
+        .contextMenu {
+            width: 50%;
+            position: absolute;
+            left: 0;
+            height: 0;
+            display: none;
+            background-color: palegreen;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="ul01">
+        <li><img src="../imgs/00.jpg" alt=""></li>
+        <li><img src="../imgs/01.jpg" alt=""></li>
+        <li><img src="../imgs/02.jpg" alt=""></li>
+    </ul>
+    <div class="fa">
+        <a href="javascript:void();" id="menu">菜单文件</a>
+        <div class="contextMenu">
+            我是子菜单
+        </div>
+    </div>
+    <script>
+        var liList = document.querySelectorAll(".ul01>li");
+        var Body = document.getElementsByTagName("body")[0];
+        for (let i = 0; i < liList.length; i++) {
+            liList[i].onclick = function () {
+                Body.style.backgroundImage = `url(../imgs/0${i}.jpg)`;
+            }
+        }
+
+        // for (var i = 0; i < liList.length; i++) {
+        //     (function(){
+        //         liList[i].onclick = function () {
+        //         Body.style.backgroundImage = `url(../imgs/0${i}.jpg)`;
+        //     }
+        //     }
+        //     )(i);
+        // }
+
+        var menu=document.getElementById("menu");
+        var contextMenu=document.getElementsByClassName("contextMenu")[0];
+        menu.onmouseover=function(){
+            var aa=0;
+            var timer=setInterval(function(){
+                if(aa<200){
+                    aa--;
+                    contextMenu.style.display="block";
+                    contextMenu.style.height=`${aa}px`;
+                }
+                // else{
+                //     clearInterval(timer);
+                // }
+            },200);
+        }
+    </script>
+</body>
+
+</html>

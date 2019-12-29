@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>鼠标拖曳</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .box01 {
+            width: 200px;
+            height: 200px;
+            background-color: gold;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .box01:hover {
+            cursor: move;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box01">
+        可用鼠标拖曳我
+    </div>
+
+    <script>
+        var box01 = document.getElementsByClassName("box01")[0];
+        box01.addEventListener("mousedown",function (e){
+            console.log(e);
+            var mouseX=e.clientX;
+            var mouseY=e.clientY;
+            var divX=parseInt( getComputedStyle(box01).left );
+            var divY=parseInt( getComputedStyle(box01).top );
+
+            document.onmousemove=function (e){
+                var posX=e.clientX-mouseX;
+                var posY=e.clientY-mouseY;
+                box01.style.left=posX+divX + "px";
+                box01.style.top=posY+divY + "px";
+            }
+        });
+        box01.onmouseup=function(){
+            document.onmousemove=null;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // var pX;
+        // var pY;
+        // box01.addEventListener("mousedown", function (e) {
+        //     pX = e.pageX - parseInt(getComputedStyle(box01).left);
+        //     pY = e.pageY - parseInt(getComputedStyle(box01).top);
+        //     console.log(pX, pY);
+        //     document.onmousemove = function (e) {
+        //         box01.style.top = (e.pageX - pX) + "px";
+        //         box01.style.left = (e.pageY - pY) + "px";
+        //     }
+        //     // console.log(e);
+        // });
+        // box01.onmouseup = function () {
+        //     document.onmousemove = null;
+        // }
+
+
+    </script>
+</body>
+
+</html>

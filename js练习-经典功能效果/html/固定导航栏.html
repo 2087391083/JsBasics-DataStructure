@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>固定导航栏</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .tab {
+            width: 100%;
+            height: 50px;
+            background-color: rgb(242, 243, 154);
+        }
+
+        .nav {
+            width: 100%;
+            height: 75px;
+            background-color: rgb(248, 232, 9);
+            position: fixed;
+            top: -75px;
+            left: 0;
+        }
+
+        .content>p {
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tab">xxxxxxxxxxxxxx</div>
+    <div class="nav">我是菜单栏</div>
+    <div class="content">
+        <p>aaaa1</p>
+        <p>aaaa2</p>
+        <p>aaaa3</p>
+        <p>aaaa4</p>
+        <p>aaaa5</p>
+        <p>aaaa6</p>
+        <p>aaaa7</p>
+        <p>aaaa8</p>
+        <p>aaaa9</p>
+        <p>aaaa10</p>
+        <p>aaaa11</p>
+        <p>aaaa12</p>
+        <p>aaaa13</p>
+        <p>aaaa14</p>
+        <p>aaaa15</p>
+        <p>aaaa16</p>
+        <p>aaaa17</p>
+        <p>aaaa18</p>
+        <p>aaaa19</p>
+        <p>aaaa20</p>
+    </div>
+
+    <script>
+        var tab = document.getElementsByClassName("tab")[0];
+        var nav = document.getElementsByClassName("nav")[0];
+        var flag = true;
+        var timer1, timer2;
+        window.onscroll = function (e) {
+            var scrollH = e.pageY || document.documentElement.scrollTop;
+            if (scrollH >= 50 && flag) {
+                clearInterval(timer2);
+                timer1 = setInterval(function () {
+                    var navTop = parseInt(getComputedStyle(nav).top);
+                    nav.style.top = navTop + (0 - navTop) * 0.5 + "px";
+                    if (navTop >= 0) {
+                        clearInterval(timer1);
+                    }
+                }, 50);
+                flag = false;
+            }
+            if (scrollH < 50 && flag != true) {
+                clearInterval(timer1);
+                timer2 = setInterval(function () {
+                    var navTop = parseInt(getComputedStyle(nav).top);
+                    nav.style.top = navTop + -5 + "px";
+                    if (navTop == -75) {
+                        clearInterval(timer2);
+                    }
+                }, 10);
+                flag = true;
+            }
+        }
+    </script>
+</body>
+
+</html>

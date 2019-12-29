@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>队列的封装</title>
+</head>
+
+<body>
+
+    <script>
+        class QueueEle {
+            constructor(ele, pri) {
+                this.ele = ele;
+                this.pri = pri;
+            }
+        }
+
+        class Queue {
+            constructor() {
+                this.items = [];
+            }
+            size() {
+                return this.items.length;
+            }
+            isEmpty() {
+                if (this.items.length == 0) {
+                    return true;
+                }
+                return false;
+            }
+            push(item, pri) {
+                var queueele = new QueueEle(item, pri);
+                console.log(queueele);
+                if (this.isEmpty()) {
+                    this.items.push(queueele);
+                } else {
+                    let flag = false;
+                    for (let i = 0; i < this.size(); i++) {
+                        if (pri < this.items[i].pri) {
+                            this.items.splice(i, 0, queueele);
+                            break;
+                        }
+                        flag = true;
+                    }
+                    if (flag) {
+                        this.items.push(queueele);
+                    }
+                }
+            }
+            shift() {
+                this.items.shift();
+            }
+            front() {
+                return this.items[0];
+            }
+            toString() {
+                let str = "";
+                for (let i = 0; i < this.items.length; i++) {
+                    str += this.items[i].ele + ":" + this.items[i].pri + "      ";
+                }
+                return str;
+            }
+        }
+        var queue = new Queue();
+        queue.push("aa", 45);
+        queue.push("dssd", 100);
+        queue.push("32", 20);
+        queue.push("dg", 56);
+        queue.push("aa", 45);
+        queue.push("kjl", 5);
+        console.log(queue);
+        console.log(queue.toString());
+    </script>
+</body>
+
+</html>

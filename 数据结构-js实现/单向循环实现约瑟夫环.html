@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>单向循环实现约瑟夫环</title>
+</head>
+
+<body>
+
+    <script>
+        class createNode {
+            constructor(data) {
+                this.data = data;
+                this.next = null;
+            }
+        }
+        class LinkNode {
+            constructor() {
+                this.head = null;
+                this.length = 0;
+            }
+            append(data) {
+                var newnode = new createNode(data);
+                if (this.head == null) {
+                    this.head = newnode;
+                    newnode.next = newnode;
+                } else {
+                    let current = this.head;
+                    while (current.next != this.head) {
+                        current = current.next;
+                    }
+                    current.next = newnode;
+                    newnode.next = this.head;
+                }
+                this.length++;
+            }
+            removeAt(pos) {
+                if (pos == 0) {
+                    if (this.length == 1) {
+                        this.head = null;
+                    } else {
+                        let current = this.head;
+                        while (current.next != this.head) {
+                            current = current.next;
+                        }
+                        current.next = this.head.next;
+                        this.head = this.head.next;
+                    }
+                }
+                //  else if (pos == this.length - 1) {
+                //     let current = this.head;
+                //     let index = 0;
+                //     while (index++ < pos - 1) {
+                //         current = current.next;
+                //     }
+                //     current.next = this.head;
+                // } else {
+                //     let current = this.head;
+                //     let index = 0;
+                //     while (index++ < pos - 1) {
+                //         current = current.next;
+                //     }
+                //     current.next = current.next.next;
+                // }
+                this.length--;
+                return true;
+            }
+            // indexOf(ele) {
+            //     let index = 0;
+            //     let current = this.head;
+            //     while (current.next != this.head) {
+            //         if (current.data == ele) {
+            //             return index;
+            //         }
+            //         index++;
+            //         current = current.next;
+            //     }
+            //     return current.data == ele ? index : -1;
+            // }
+            // remove(ele) {
+            //     this.removeAt(this.indexOf(ele));
+            // }
+            toString() {
+                var arr = [];
+                let current = this.head;
+                while (current.next != this.head) {
+                    arr.push(current.data);
+                    current = current.next;
+                }
+                arr.push(current.data);
+                return arr;
+            }
+        }
+        function ysfh(personNum, number) {
+            var linknode = new LinkNode();
+            for (let i = 1; i <= personNum; i++) {
+                linknode.append(i);
+            }
+            // console.log(linknode);
+            // console.log(linknode.head.data);
+            let index = 1;
+            while (linknode.length >= number) {
+                if (index % number == 0) {
+                    linknode.removeAt(0);
+                } else {
+                    var a = linknode.head.data;
+                    linknode.removeAt(0);
+                    linknode.append(a);
+                }
+                index++;
+            }
+            return linknode.toString();
+        }
+        console.log(ysfh(41, 3));
+    </script>
+</body>
+
+</html>

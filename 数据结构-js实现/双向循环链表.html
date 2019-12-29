@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>双向循环链表方法的封装</title>
+</head>
+
+<body>
+
+    <script>
+        class CNode {
+            constructor(data) {
+                this.prev = null;
+                this.data = data;
+                this.next = null;
+            }
+        }
+        class LinkNode {
+            constructor() {
+                this.head = null;
+                this.tail = null;
+                this.length = 0;
+            }
+            append(data) {
+                var newnode = new CNode(data);
+                if (this.head == null) {
+                    this.head = newnode;
+                    this.tail = newnode;
+                    newnode.next = this.head;
+                    newnode.prev = this.tail;
+                } else {
+                    this.tail.next = newnode;
+                    newnode.prev = this.tail;
+                    newnode.next = this.head
+                    this.tail = newnode;
+                }
+                this.length++;
+            }
+            insert(pos, data) {
+                if (pos < 0 || pos > this.length ) return false;
+                var newnode = new CNode(data);
+                if (this.head == null) {
+                    this.head = newnode;
+                    this.tail = newnode;
+                    newnode.next = this.head;
+                    newnode.prev = this.tail;
+                    this.length++;
+                } else {
+                    if (pos == 0) {
+                        this.tail.next = newnode;
+                        newnode.next = this.head;
+                        newnode.prev = this.tail;
+                        this.head.prev = newnode;
+                        this.head = newnode;
+                        this.length++;
+                    } else if (pos == this.length-1) {
+                        this.append(data);
+                    } else {
+                        let index = 0;
+                        let current = this.head;
+                        while (index++ < pos) {
+                            current = current.next;
+                        }
+                        newnode.next = current;
+                        newnode.prev = current.prev;
+                        current.prev.next = newnode;
+                        current.prev = newnode;
+                        this.length++;
+                    }
+                }
+                return true;
+            }
+            indexOf(ele) {
+                let index = 0;
+                let current = this.head;
+                while (current.next != this.head) {
+                    if (current.data == ele) {
+                        return index;
+                    }
+                    current = current.next;
+                    index++;
+                }
+                return current.data == ele ? index : -1;
+            }
+            removeAt(pos) {
+                if (pos < 0 || pos > this.length - 1) return false;
+                if (pos == 0) {
+                    if (this.length == 1) {
+                        this.head = null;
+                        this.tail = null;
+                    } else {
+                        this.head.next.prev = this.tail;
+                        this.tail.next = this.head.next;
+                        this.head = this.head.next;
+                    }
+                } else if (pos == this.length) {
+                    this.tail.prev.next = this.head;
+                    this.head.prev = this.tail.prev;
+                    this.tail = this.tail.prev;
+                } else {
+                    let index = 0;
+                    let curernt = this.head;
+                    while (index++ < pos) {
+                        curernt = curernt.next;
+                    }
+                    curernt.prev.next = curernt.next;
+                    curernt.next.prev = curernt.prev;
+                }
+                this.length--;
+                return true;
+            }
+            remove(ele) {
+                this.removeAt(this.indexOf(ele));
+            }
+            toString() {
+                let result = "";
+                let curernt = this.head;
+                while (curernt.next != this.head) {
+                    result += curernt.data + "  ";
+                    curernt = curernt.next;
+                }
+                result += curernt.data;
+                return result;
+            }
+        }
+        var linknode = new LinkNode();
+        linknode.append("a");
+        linknode.append("b");
+        linknode.append("c");
+        // console.log(linknode);
+        console.log(linknode.toString());
+        linknode.insert(0, "aa");
+        // console.log(linknode);
+        console.log(linknode.toString());
+        linknode.insert(2, "ccc");
+        console.log(linknode);
+        console.log(linknode.toString());
+        linknode.insert(0, "aac");
+        linknode.insert(5, "aac");
+        // console.log(linknode);
+        console.log(linknode.toString());
+
+        console.log(linknode.indexOf("c"));
+        linknode.removeAt(2);
+        console.log(linknode);
+        console.log(linknode.toString());
+
+        linknode.remove("aa");
+        console.log(linknode.toString());
+    </script>
+</body>
+
+</html>
+
+<!-- 
+    append() -
+    insert() -
+    indexOf() -
+    removeAt(pos) -
+    remove(ele)
+    toString() +
+    isEmpty()
+    size()
+ -->

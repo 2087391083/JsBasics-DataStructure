@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>制作画板</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #mycanvas {
+            border: 1px solid black;
+            /* position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto; */
+        }
+
+        /* #aa{
+            text-align: center;
+            margin: 60px auto;
+        } */
+    </style>
+</head>
+
+<body>
+    <canvas id="mycanvas" width="1350" height="400">您的浏览器不支持canvas标签</canvas>
+    <div id="aa">选择绘制颜色：<input type="color" id="selectColor" /></div>
+    擦除画板：
+    <select id="clearPen">
+        <option value="-1">绘制</option>
+        <option value="20">20 * 20</option>
+        <option value="30">30 * 30</option>
+        <option value="0">清除画布</option>
+    </select>
+    <script>
+        var mycanvas = document.getElementById("mycanvas");
+        var myContext = mycanvas.getContext("2d");
+        var Color = document.getElementById("selectColor");
+        var clearPen = document.getElementById("clearPen");
+        //用户绘制
+        var curColor;
+        var clearPenV = clearPen.value;
+        clearPen.onchange = function () {
+            clearPenV = clearPen.value;
+            if (clearPenV == 0) {
+                mycanvas.onmousedown=null;
+                myContext.clearRect(0, 0, mycanvas.width, mycanvas.height);
+            }
+            console.log(clearPenV);
+        }
+
+        mycanvas.onmouseenter = function (e) {
+            clearPenV = clearPen.value;
+            console.log(clearPenV);
+            curColor = Color.value;
+            var enterX=e.clientX;
+            var enterY=e.clientY;
+            if (clearPenV == -1) {
+                mycanvas.onmousedown = function (e) {
+                    // console.log("鼠标按下时状态");
+                    var downX = e.clientX;
+                    var downY = e.clientY;
+                    myContext.beginPath();
+                    myContext.moveTo(downX, downY);
+                    mycanvas.onmousemove = function (e) {
+                        var moveX = e.clientX;
+                        var moveY = e.clientY;
+                        myContext.lineTo(moveX, moveY);
+                        myContext.strokeStyle = curColor;
+                        myContext.stroke();
+                        // console.log("鼠标按下并移动时");
+                    }
+                }
+            } else if (clearPenV == 20) {
+                mycanvas.onmousedown=null;
+                mycanvas.onmousemove = function (e) {
+                    var moveX = e.clientX-(clearPenV/2);
+                    var moveY = e.clientY-(clearPenV/2);
+                    myContext.clearRect(moveX,moveY,clearPenV,clearPenV);
+                }
+            } else if (clearPenV == 30) {
+                mycanvas.onmousedown=null;
+                mycanvas.onmousemove = function (e) {
+                    var moveX = e.clientX-(clearPenV/2);
+                    var moveY = e.clientY-(clearPenV/2);
+                    myContext.clearRect(moveX,moveY,clearPenV,clearPenV);
+                }
+            }
+        }
+        mycanvas.onmouseup = function (e) {
+            // console.log("鼠标松开了");
+            myContext.closePath();
+            mycanvas.onmousemove = null;
+        }
+        mycanvas.onmouseleave = function () {
+            mycanvas.onmousemove = null;
+        }
+    </script>
+</body>
+
+</html>

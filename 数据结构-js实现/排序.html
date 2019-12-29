@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>排序</title>
+</head>
+
+<body>
+    <script>
+        class SortList {
+            constructor() {
+                this.arr = [];
+            }
+            insert(data) {
+                this.arr.push(data);
+            }
+            swap(n, m) {
+                let temp = this.arr[n];
+                this.arr[n] = this.arr[m];
+                this.arr[m] = temp;
+            }
+            bulleSort() {
+                for (let i = this.arr.length - 1; i > 0; i--) {
+                    for (let j = 0; j < i; j++) {
+                        if (this.arr[j] > this.arr[j + 1]) {
+                            this.swap(j, j + 1);
+                        }
+                    }
+                }
+            }
+            //选择排序
+            selectionSort() {
+                for (let i = 0; i < this.arr.length - 1; i++) {
+                    let min = i;
+                    for (let j = min + 1; j < this.arr.length; j++) {
+                        if (this.arr[min] > this.arr[j]) {
+                            min = j;
+                        }
+                    }
+                    this.swap(i, min);
+                }
+            }
+            //插入排序
+            insertionSort(){
+                for(let i=1;i<this.arr.length;i++){
+                    let j=i;
+                    let temp=this.arr[i];
+                    while(j>0 && temp<this.arr[j-1]){
+                        this.arr[j]=this.arr[j-1];
+                        j--;
+                    }
+                    this.arr[j]=temp;
+                }
+            }
+
+            //归并排序
+            mergerSort() {
+                this.arr = this.mergerSort_slice(this.arr);
+            }
+            mergerSort_slice(array) {
+                if (array.length <= 1) {
+                    return array;
+                }
+                let index = Math.floor(array.length / 2);
+                let left = array.slice(0, index);
+                let right = array.slice(index);
+                return this.mergerSortPx(this.mergerSort_slice(left), this.mergerSort_slice(right))
+            }
+            mergerSortPx(left, right) {
+                let newarr = [];
+                while (left.length > 0 && right.length > 0) {
+                    if (left[0] > right[0]) {
+                        newarr.push(right.shift());
+                    } else {
+                        newarr.push(left.shift());
+                    }
+                }
+                // console.log(newarr);
+                return newarr.concat(left, right);
+            }
+            //快速排序
+            quickSort() {
+                this.arr = this.quick(this.arr);
+            }
+            quick(newArr) {
+                if (newArr.length <= 1) {
+                    return newArr;
+                }
+                let left = [];
+                let right = [];
+                let provIndex = Math.floor(newArr.length / 2);
+                let prov = newArr[provIndex];
+                newArr.splice(provIndex, 1);
+                for (let i = 0; i < newArr.length; i++) {
+                    if (newArr[i] <= prov) {
+                        left.push(newArr[i]);
+                    } else {
+                        right.push(newArr[i]);
+                    }
+                }
+                return this.quick(left).concat(prov, this.quick(right));
+            }
+            toString() {
+                return this.arr.join(" ");
+            }
+        }
+        var sortlist = new SortList();
+        sortlist.insert(12);
+        sortlist.insert(4);
+        sortlist.insert(56);
+        sortlist.insert(2);
+        sortlist.insert(6);
+        sortlist.insert(8);
+        sortlist.insert(80);
+        console.log(sortlist);
+        // sortlist.bulleSort();
+        // sortlist.selectionSort();
+        // sortlist.mergerSort();
+        // sortlist.quickSort();
+        sortlist.insertionSort();
+        console.log(sortlist.toString());
+    </script>
+</body>
+
+</html>

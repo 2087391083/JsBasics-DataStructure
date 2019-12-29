@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>二叉树</title>
+</head>
+
+<body>
+
+    <script>
+        class CreateNode {
+            constructor(data) {
+                this.left = null;
+                this.data = data;
+                this.right = null
+            }
+        }
+        class BST {
+            constructor() {
+                this.root = null;
+            }
+            insert(data) {
+                let newnode = new CreateNode(data);
+                if (this.root == null) {
+                    this.root = newnode;
+                } else {
+                    this.insertNode(this.root, newnode);
+                }
+            }
+            insertNode(node, newnode) {
+                if (node.data > newnode.data) {
+                    if (node.left == null) {
+                        node.left = newnode;
+                    } else {
+                        this.insertNode(node.left, newnode);
+                    }
+                } else {
+                    if (node.right == null) {
+                        node.right = newnode;
+                    } else {
+                        this.insertNode(node.right, newnode);
+                    }
+                }
+            }
+            //先序遍历
+            before() {
+                this.beforeNode(this.root);
+            }
+            beforeNode(node) {
+                if (node == null) {
+                    return;
+                }
+                console.log(node.data);
+                this.beforeNode(node.left);
+                this.beforeNode(node.right);
+            }
+            //中序遍历
+            center() {
+                this.centerNode(this.root);
+            }
+            centerNode(node) {
+                if (node == null) {
+                    return;
+                }
+                this.centerNode(node.left);
+                console.log(node.data);
+                this.centerNode(node.right);
+            }
+            //后序遍历
+            after() {
+                this.afterNode(this.root);
+            }
+            afterNode(node) {
+                if (node == null) {
+                    return;
+                }
+                this.afterNode(node.left);
+                this.afterNode(node.right);
+                console.log(node.data);
+            }
+
+            //最小值
+            getMin() {
+                let current = this.root;
+                while (current.left != null) {
+                    current = current.left;
+                }
+                return current;
+            }
+
+            //最大值
+            getMax() {
+                let current = this.root;
+                while (current.right != null) {
+                    current = current.right;
+                }
+                return current;
+            }
+
+            //索搜
+            search(data) {
+                let current = this.root;
+                while (current != null) {
+                    if (current.data > data) {
+                        current = current.left;
+                    } else if (current.data < data) {
+                        current = current.right;
+                    } else {
+                        return current;
+                    }
+                }
+                return false;
+            }
+
+            //删除节点
+            //叶子节点和只有一个根节点的树删除 +
+            //只有一个叶子节点   左节点为空   +
+            //右节点为空    +
+            //删除有两个子节点的节点 +
+            removeNode(data) {
+                let current = this.root;
+                let parent = null;
+                let isLeft = false;
+                while (current.data != data) {
+                    parent = current;
+                    if (current.data > data) {
+                        current = current.left;
+                        isLeft = true;
+                    } else {
+                        current = current.right;
+                        isLeft = false;
+                    }
+                }
+                if (current.left == null && current.right == null) {
+                    //删除的是叶子结点时(包括只有一个跟节点时)
+                    if (current == this.root) {
+                        this.root = null;
+                    } else if (isLeft) {
+                        parent.left = null;
+                    } else {
+                        parent.right = null;
+                    }
+                } else if (current.left == null && current.right != null) {
+                    if (current == this.root) {
+                        this.root = current.right;
+                    } else if (isLeft) {
+                        parent.left = current.right;
+                    } else {
+                        parent.right = current.left;
+                    }
+                } else if (current.left != null && current.right == null) {
+                    if (current == this.root) {
+                        this.root = current.left;
+                    } else if (isLeft) {
+                        parent.left = current.left;
+                    } else {
+                        parent.right = current.left;
+                    }
+                } else {
+                    let succeed = this.getSucceed(current);
+                    if (current == this.root) {
+                        succeed.left = current.left;
+                        succeed.right = current.right;
+                        this.root = succeed;
+                    } else if (isLeft) {
+                        parent.left = succeed;
+                        succeed.left = current.left;
+                        succeed.right = current.right;
+                    } else {
+                        parent.right = succeed;
+                        succeed.left = current.left;
+                        succeed.right = current.right;
+                    }
+                }
+            }
+
+            //找后继结点
+            getSucceed(delNode) {
+                let succeed = null;
+                let succeedParent = null;
+                let current = delNode.right;
+                while (current.left != null) {
+                    succeedParent = current;
+                    current = current.left;
+                }
+                if (current != delNode.right) {
+                    succeedParent.left = current.right;
+                }
+                succeed = current;
+                return succeed;
+            }
+        }
+        var bst = new BST();
+        bst.insert(13);
+        bst.insert(9);
+        bst.insert(15);
+        bst.insert(2);
+        bst.insert(10);
+        bst.insert(11);
+        bst.insert(14);
+        bst.insert(14.5);
+        bst.insert(25);
+
+        // bst.insert(11);
+        // bst.insert(7);
+        // bst.insert(15);
+        // bst.insert(5);
+        // bst.insert(3);
+        // bst.insert(9);
+        // bst.insert(8);
+        // bst.insert(10);
+        // bst.insert(13);
+        // bst.insert(12);
+        // bst.insert(14);
+        // bst.insert(20);
+        // bst.insert(18);
+        // bst.insert(25);
+        // bst.insert(19);
+        console.log(bst);
+
+        bst.removeNode(13);
+        console.log(bst);
+
+        // bst.before();
+        // console.log("");
+        // bst.center();
+        // console.log("");
+        // bst.after();
+        // console.log(bst.getMin());
+        // console.log(bst.getMax());
+        // console.log(bst.search("15"));
+
+        // console.log(bst.removeNode("15"));
+    </script>
+</body>
+
+</html>

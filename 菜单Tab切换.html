@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>模态弹出框</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            height: 100%;
+            width: 100%;
+        }
+        .loginByStyle{
+            width: 100%;
+            height: 100%;
+            background-color: rgba(200,200,200,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        .loginConStyle{
+            background-color: palegreen;
+            width: 400px;
+            height: 300px;
+            border-radius: 10px;
+        }
+        .selected{
+            background-color: brown;
+        }
+        .conSelected{
+            display: block;
+        }
+        ul{
+            display: flex;
+        }
+        li{
+            display: inline-block;
+            list-style: none;
+            background-color: palegreen;
+            margin-right: 3px;
+        }
+        .content{
+            background-color: yellow;
+            width: 500px;
+            height: 300px;
+        }
+        .hide{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    
+    <button id="btn1" type="button">登陆</button>
+
+    <div class="tab">
+        <ul>
+            <li class="selected">aaa1</li>
+            <li>aaa2</li>
+            <li>aaa3</li>
+            <li>aaa4</li>
+            <li>aaa5</li>
+        </ul>
+        <div class="content">
+            <div class="conSelected">aasad1</div>
+            <div class="hide">aasad2</div>
+            <div class="hide">aasad3</div>
+            <div class="hide">aasad4</div>
+            <div class="hide">aasad5</div>
+        </div>
+    </div>
+    <script>
+        var btn=document.querySelector("#btn1");
+        var by=document.body;
+        btn.onclick=function (){
+            var loginBg=document.createElement("div");
+            loginBg.className="loginByStyle";
+            by.appendChild(loginBg);
+
+            var loginContent=document.createElement("div");
+            loginContent.className="loginConStyle";
+            loginBg.appendChild(loginContent);
+
+            loginContent.onclick=function (){
+                loginBg.remove();//从节点树中移除loginBg节点
+            }
+        }
+        
+        var liArr=document.getElementsByTagName("li");
+        var contentArr=document.querySelectorAll(".content div");
+        for(var a=0;a<liArr.length;a++){
+            (function (a){
+                liArr[a].onclick=function (){
+                    for(var b=0;b<liArr.length;b++){
+                        liArr[b].classList="";
+                    }
+                    liArr[a].classList="selected";
+
+                    for(var c=0;c<contentArr.length;c++){
+                        contentArr[c].classList.remove("conSelected");
+                        contentArr[c].classList.add("hide");
+                    }
+                    contentArr[a].classList.remove("hide");
+                    contentArr[a].classList.add("conSelected");
+                }
+            })(a);
+        }
+    </script>
+</body>
+</html>

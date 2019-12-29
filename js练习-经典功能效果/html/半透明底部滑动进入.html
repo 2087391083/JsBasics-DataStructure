@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>半透明底部滑动进入效果</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .box{
+            width: 710px;
+            height: 400px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+        .box>img{
+            width: 710px;
+            height: 400px;
+        }
+        .subBox{
+            width: 710px;
+            height: 120px;
+            background-color: rgba(255, 255, 0, 0.4);
+            position: absolute;
+            left: 0;
+            bottom: -120px;
+        }
+        .subBox>p{
+            text-align: center;
+            font-size: 18px;
+            line-height: 30px;
+        }
+        .subBox>p:nth-child(1){
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <img src="../imgs/1111.jpg" alt="">
+        <div class="subBox">
+            <p>商品名称：车厘子</p>
+            <p>售价：20元/斤</p>
+            <p>扫码购买</p>
+        </div>
+    </div>
+    <script>
+        var box=document.getElementsByClassName("box")[0];
+        var subBox=document.getElementsByClassName("subBox")[0];
+        
+        var timer1,timer2;
+        box.onmouseenter=function (){
+            clearInterval(timer2);
+            timer1=setInterval(function(){
+                var subBoxB=parseInt( getComputedStyle(subBox).bottom );
+                subBox.style.bottom=subBoxB + (0 - subBoxB)*0.7 + "px";
+                if(subBoxB == 0){
+                    clearInterval(timer1);
+                }
+            },100);
+        }
+        box.onmouseleave=function (){
+            clearInterval(timer1);
+            timer2=setInterval(function(){
+                var subBoxB=parseInt( getComputedStyle(subBox).bottom );
+                subBox.style.bottom=subBoxB + (-120 - subBoxB)*0.7 + "px";
+                console.log(subBoxB);
+                if(subBoxB == -119){
+                    clearInterval(timer2);
+                }
+            },100);
+        }
+    </script>
+</body>
+</html>

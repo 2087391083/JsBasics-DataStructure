@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CSS3</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html {
+            font-size: 15px;
+        }
+
+        .box {
+            width: 400vw;
+            height: 400em;
+            background-color: antiquewhite;
+            font-size: 2em;
+            /* 30px */
+        }
+
+        .box>.boxChild {
+            width: 200px;
+            height: 200px;
+            background-color: yellowgreen;
+            font-size: 2em;
+            /* 60px */
+        }
+
+
+        .aa {
+            columns: 3;
+        }
+
+        .aa>.c {
+            width: 100%;
+            height: auto;
+            background-color: aqua;
+            
+        }
+        .aa>.c  img{
+            width: 80%;
+            height: 50px;
+
+
+            -webkit-break-inside: avoid;
+        }
+    </style>
+</head>
+
+<body>
+    <div class='aa'>
+        <div class="c">
+            <img src="../imgs//bg_top.PNG" alt="">
+            1<br /></div>
+        <div class="c">
+            <img src="../imgs//bg_top.PNG" alt="">2<br /><br /></div>
+        <div class="c">
+            <img src="../imgs//bg_top.PNG" alt="">
+            3<br /><br /><br /></div>
+        <div class="c">
+            <img src="../imgs//bg_top.PNG" alt="">
+            4<br /><br /><br /><br /></div>
+    </div>
+
+
+
+
+    <div class="box">
+        我是box
+        <div class="boxChild">
+            我是boxChild
+        </div>
+    </div>
+</body>
+
+</html>

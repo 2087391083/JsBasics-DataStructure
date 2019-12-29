@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .oneUser {
+            padding: 0 50px;
+        }
+
+        .heaher {
+            width: 100%;
+        }
+
+        .createTimeStyle,
+        .idStyle{
+            font-size: 12px;
+        }
+
+        .userImg {
+            width: 160px;
+            height: 100px;
+        }
+        .contentStyle{
+            display: inline-block;
+            line-height: 30px;
+        }
+        hr{
+            margin: 20px 0;
+            outline: none;
+        }
+        img{
+            padding-right: 20px;
+        }
+        .textStyle{
+            font-size: 20px;
+            padding: 5px 0 10px;
+        }
+        .zfCountStyle,
+        .pjCountStyle,
+        .btCountStyle{
+            font-size: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="oneUser">
+        <div class="heaher">
+
+        </div>
+        <!-- 创建时间、微博id -->
+        <!-- 图片信息 -->
+        <!-- 用户转发、评价、表态数 -->
+    </div>
+
+    <script src="../html/data.js"></script>
+    <script>
+        let { ad, advertises, has_unread, hasvisible, interval, max_id, max_id_str, next_cursor, next_cursor_str, previous_cursor, previous_cursor_str, since_id, since_id_str, statuses, total_number, uve_blank } = data;
+        let [{ attitudes_count, biz_feature, can_edit, comment_manage_info, comments_count, content_auth, created_at, darwin_tags, favorited, geo, gif_ids, hasActionTypeCard, hide_flag, hot_weibo_tags, id, idstr, in_reply_to_screen_name, in_reply_to_status_id, in_reply_to_user_id, isLongText, is_paid, is_show_bulletin, mblog_vip_type, mblogtype, mid, mlevel, retweeted_status, text, user }] = statuses;
+        // let {annotations,attitudes_count,biz_feature,bmiddle_pic,can_edit,cardid,comment_manage_info,comments_count,content_auth,created_at,darwin_tags}=retweeted_status;
+
+        var oneUser=document.getElementsByClassName("oneUser");
+        var hearder = document.getElementsByClassName("heaher")[0];
+        for (var i = 0; i < statuses.length; i++) {
+            //创建时间
+            var d=new Date(statuses[i].created_at);
+            var createTime = document.createElement("p");
+            // createTime.innerHTML = "用户创建时间：" +  d.Format("yyyy-MM-dd");
+
+            createTime.innerHTML = "用户创建时间：" + d.getFullYear() + "年" + d.getMonth(statuses[i].created_at) + "月" + d.getDate(statuses[i].created_at) + "日";
+            createTime.className = "createTimeStyle";
+            hearder.appendChild(createTime);
+
+            //用户id名
+            var createTime = document.createElement("p");
+            createTime.innerHTML = "用户id号：" + statuses[i].user.id;
+            createTime.className = "idStyle";
+            hearder.appendChild(createTime);
+
+            //用户图片
+            if ((statuses[i].retweeted_status) == undefined) {
+                // var userImg = document.createElement("img");
+                // userImg.src ="../imgs/011.jpg";
+                // userImg.className = "userImg";
+                // hearder.appendChild(userImg);
+            }else{
+                var userImg = document.createElement("img");
+                userImg.src = statuses[i].retweeted_status.user.cover_image;
+                userImg.className = "userImg";
+                hearder.appendChild(userImg);
+            }
+        
+            var content = document.createElement("h3");
+            content.innerHTML = statuses[i].user.name;
+            content.className = "contentStyle";
+            hearder.appendChild(content);
+
+            var content = document.createElement("br");
+            hearder.appendChild(content);
+
+            //文本内容
+            var textMsg = document.createElement("p");
+            textMsg.innerHTML =  statuses[i].text;
+            textMsg.className = "textStyle";
+            hearder.appendChild(textMsg);
+
+            //转发次数
+            var zfCount = document.createElement("span");
+            zfCount.innerHTML = "转发次数：" + statuses[i].reposts_count+`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`;
+            zfCount.className = "zfCountStyle";
+            hearder.appendChild(zfCount);
+
+            //评论数
+            var pjCount = document.createElement("span");
+            pjCount.innerHTML = "评论数：" + statuses[i].comments_count+`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`;
+            pjCount.className = "pjCountStyle";
+            hearder.appendChild(pjCount);
+
+            //表态数
+            var btCount = document.createElement("span");
+            btCount.innerHTML = "表态数：" + statuses[i].attitudes_count;
+            btCount.className = "btCountStyle";
+            hearder.appendChild(btCount);
+
+            var content = document.createElement("hr");
+            hearder.appendChild(content);
+
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>约瑟夫环</title>
+</head>
+
+<body>
+
+    <script>
+        class Queue {
+            constructor() {
+                this.arr = [];
+            }
+            push(item) {
+                this.arr.push(item);
+            }
+            delQueue() {
+                this.arr.shift();
+            }
+            size() {
+                return this.arr.length;
+            }
+        }
+        function ysfh(personNum, num) {
+            var queue = new Queue();
+            for (let i = 1; i <= num; i++) {
+                queue.push(i);
+            }
+            console.log(queue);
+            let index = 1;
+            while (queue.size() > 1) {
+                if (index % num == 0) {
+                    queue.delQueue();
+                } else {
+                    queue.push(queue.delQueue());
+                }
+                index++;
+            }
+            return queue;
+        }
+        var re=ysfh(5, 3);
+        console.log(re);
+    </script>
+
+</body>
+
+</html>

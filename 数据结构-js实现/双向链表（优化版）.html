@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>双向链表</title>
+</head>
+
+<body>
+
+    <script>
+        //双向链表的设计思想：
+        //首先需要一个头部head节点和尾部tail节点；
+        //每个节点需要有三个属性：
+        // 一个是prev，用于指向前一个节点；一个是data，用于存放当前节点的数据；另一个是next，用于存放下一个节点
+        class DoublyNode {
+            constructor(data) {
+                this.prev = null;
+                this.data = data;
+                this.next = null;
+            }
+        }
+        class DoublyLinkNode {
+            constructor() {
+                this.head = null;
+                this.tail = null;
+                this.length = 0;
+            }
+            //向双向链表中插入数据（注意修改指向时的顺序）
+            //首先需要先判断当前链表是否为空链表：
+            //是空链表的话，直接将当前空链表的head和tail改为指向新节点
+            //不是空链表的话：
+            //先将最后一个节点tail的next改为指向新节点；
+            //再将新节点的prev设置为指向最后一个节点；
+            //最后再将链表的tail尾部节点设置为当前插入的新节点
+            append(data) {
+                var newNode = new DoublyNode(data);
+                if (this.head == null) {
+                    this.head = newNode;
+                    this.tail = newNode;
+                } else {
+                    this.tail.next = newNode;
+                    newNode.prev = this.tail;
+                    this.tail = newNode;
+                }
+                this.length++;
+            }
+            //正向遍历的设计思想：
+            //用一个临时变量将当前节点保存起来，首先将链表的head指向临时变量；
+            //用一个循环用于挪动当前节点，并将当前节点的data进行拼接（循环结束条件：当前节点为null）；
+            forwardString() {
+                let current = this.head;
+                let result = "";
+                while (current != null) {
+                    result += current.data + "  ";
+                    current = current.next;
+                }
+                return result;
+            }
+            //反向遍历的设计思想：
+            //用一个临时变量将保存当前节点，首先将链表的tail指向临时变量
+            //用一个循环用于挪动当前节点，并将当前节点的data进行拼接（循环结束条件：当前节点为null）；
+            backString() {
+                let current = this.tail;
+                let result = "";
+                while (current != null) {
+                    result += current.data + "  ";
+                    current = current.prev;
+                }
+                return result;
+            }
+            //insert()插入
+            //空链表的情况；
+            //链表不为空，插入到头部，尾部
+            //插入在中间位置
+            //设计思想：
+            //加入是空链表的情况，直接将head和tail的地址指向当前新创建的新元素；
+            //链表不为空：插入是在头部，直接将新元素的next指向原来的head，再将新元素的prev改为指向新元素，最后将当前链表的head该为指向新元素；
+            //链表不为空：插入在尾部，直接将链表的tail的next改为指向新元素；再将新元素的prev指向原链表的tail；最后再将链表的tail改为指向当前新创建的元素
+            //链表不为空：在中间位置插入元素,先判断当前传入的pos是否为合法的；
+            //    是合法话才继续执行，先将新节点的next执行指向当前找到的current节点；
+            //                      再将新节点的prev指向当前current的prev;
+            //                      当前节点的前一个节点的next指向新创建的节点；
+            //                      当前节点的prev指向新节点；
+
+            //优化版思想：
+            //先判断插入的位置属于前半段还是后半段；前半段的话需要排除0为特殊情况，其余情况正常操作；
+            //插入的位置是后半段：直接将指针移到最后，从后往前的顺序查找，然后再插入；需排除插入位置是链表长度时的特殊情况。
+            insert(pos, data) {
+                if (pos < 0 || pos > this.length) return;
+                var newNode = new DoublyNode(data);
+                let centerPos = Math.floor(this.length / 2);
+                if (pos >= 0 && pos < centerPos) {
+                    if (pos == 0) {
+                        if (this.head == null) {
+                            this.head = newNode;
+                            this.tail = newNode;
+                        } else {
+                            this.head.prev = newNode;
+                            newNode.next = this.head;
+                            this.head = newNode;
+                        }
+                    } else {
+                        let index = 0;
+                        let current = this.head;
+                        while (index++ < pos) {
+                            current = current.next;
+                        }
+                        newNode.next = current;
+                        newNode.prev = current.prev;
+                        current.prev.next = newNode;
+                        current.prev = newNode;
+                    }
+                    this.length++;
+                    console.log("before",this.length);
+                } else {
+                    if (pos == this.length) {
+                        this.append(data);
+                    }else{
+                        let index=this.length-1;
+                        let current=this.tail;
+                        while(index-- > pos){
+                            current=current.prev;
+                        }
+                        console.log("atfer....");
+                        newNode.prev=current.prev;
+                        newNode.next=current;
+                        current.prev.next=newNode;
+                        current.prev=newNode;
+                        this.length++;
+                    }
+                }
+            }
+            //removeAt()
+            //设计思想：先判断位置是否合法；
+            //         合法时：在判断当前传入的位置是否为0；为0时在判断该链表是否只有一个元素，只有一个元素的话，直接将链表的head和tail指向null;
+            //                否则，将链表的head改为指向原head的next；再将链表中新的head的prev置空；
+            //                判断是否为最后的位置，将最后的位置
+            //
+            //
+            removeAt(pos) {
+                if (pos >= this.length || pos < 0) return false;
+                if (pos == 0) {
+                    if (this.length == 1) {
+                        this.head = null;
+                        this.tail = null;
+                    } else {
+                        this.head = this.head.next;
+                        this.head.prev = null;
+                    }
+                } else if (pos == this.length - 1) {
+                    this.tail.prev.next = null;
+                    this.tail = this.tail.prev;
+                } else {
+                    let index = 0;
+                    let current = this.head;
+                    while (index++ < pos) {
+                        current = current.next;
+                    }
+                    current.prev.next = current.next;
+                    current.next.prev = current.prev.next;
+                }
+                this.length--;
+                return true;
+            }
+            //indexOf()查找指定元素的位置
+            indexOf(ele) {
+                let index = 0;
+                let current = this.head;
+                while (current != null) {
+                    if (current.data == ele) {
+                        return index;
+                    }
+                    current = current.next;
+                    index++;
+                }
+                return -1;
+            }
+            //remove()移除指定的元素
+            remove(ele) {
+                this.removeAt(this.indexOf(ele));
+            }
+            isEmpty() {
+                if (this.length == 0) {
+                    return true;
+                }
+                return false;
+            }
+        }
+        var doublylinknode = new DoublyLinkNode();
+        for (let i = 0; i < 5; i++) {
+            doublylinknode.append(i);
+        }
+        // console.log(doublylinknode.forwardString());//0  1  2  3  4  
+        // console.log(doublylinknode.backString());//4  3  2  1  0  
+        doublylinknode.insert(3, "aa");// aa 0  1  2  3  4  
+        // doublylinknode.insert(6, "aa11");// aa 0  1  2  3  4  aa11
+        // doublylinknode.insert(2, "luoyi");// aa 0  luoyi 1  2  3  4  aa11
+        // doublylinknode.insert(3, "bbaa");// aa 0  luoyi bbaa 1  2  3  4  aa11
+        // doublylinknode.insert(6, "89755");// aa 0  luoyi bbaa 1  2 8 3  4  aa11
+        console.log(doublylinknode);
+        console.log(doublylinknode.forwardString());
+
+        // doublylinknode.removeAt(5);
+        // console.log(doublylinknode.indexOf("0"));
+        // doublylinknode.remove("luoyi");
+        // console.log(doublylinknode.forwardString());
+        // console.log(doublylinknode.isEmpty());//false
+    </script>
+</body>
+
+</html>

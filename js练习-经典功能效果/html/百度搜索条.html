@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>百度搜索条动态输入下拉瀑布</title>
+    <script src="../jQuery-3.1.1/jQuery-3.1.1.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .fa {
+            width: 400px;
+            height: 50px;
+            position: relative;
+            top: 20px;
+            margin: 0 auto;
+        }
+
+        .box {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="fa">
+        <input type="text" id="userinput" />
+        <div class="box"></div>
+    </div>
+    <script>
+        var userinput = document.getElementById("userinput");
+        var box = document.getElementsByClassName("box")[0];
+        userinput.onkeyup = function () {
+            $.getJSON("http://suggestion.baidu.com/su?wd=" + userinput.value + "&cb=?", function (data) {
+                var arr = [];
+                arr = data.s;
+                if (arr.length != 0) {
+                    box.style.border = "1px solid black";
+                }
+                console.log(arr);
+                for (var i = 0; i < arr.length; i++) {
+                    var p = document.createElement("p");
+                    p.innerHTML = arr[i];
+                    box.appendChild(p);
+                }
+            })
+        }
+        userinput.onkeydown = function () {
+            box.innerHTML = "";
+            box.style.border = "none";
+        }
+        userinput.onblur = function () {
+            box.innerHTML = "";
+            box.style.border = "none";
+        }
+    </script>
+</body>
+
+</html>

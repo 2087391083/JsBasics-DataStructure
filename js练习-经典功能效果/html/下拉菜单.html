@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>下拉菜单</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            background-color: gainsboro;
+        }
+
+        .navUl {
+            font-size: 0;
+            display: flex;
+        }
+
+        .navUl>li {
+            display: inline-block;
+            width: 150px;
+            height: 50px;
+            /* background-color: antiquewhite; */
+            line-height: 50px;
+            font-size: 18px;
+            text-align: center;
+            position: relative;
+        }
+
+        .navUl>li>span {
+            display: inline-block;
+            width: 150px;
+            height: 50px;
+            /* background-color: antiquewhite; */
+            line-height: 50px;
+            font-size: 18px;
+            text-align: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .navUl>li>ul {
+            position: absolute;
+            left: 0;
+            top: 50px;
+            text-align: left;
+            background-color: greenyellow;
+            box-sizing: border-box;
+            /* padding-left: 20px; */
+            overflow: hidden;
+            height: 0px;
+            transition: all 0.3s;
+        }
+
+        .navUl>li:nth-child(1)>ul,
+        .navUl>li:nth-child(4)>ul,
+        .navUl>li:nth-child(5)>ul {
+            width: 150px;
+        }
+
+        .navUl>li:nth-child(2)>ul {
+            width: 200px;
+        }
+
+        .navUl>li:nth-child(3)>ul {
+            width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav">
+        <ul class="navUl">
+            <li>
+                <span>学校概括</span>
+                <ul class="menu01">
+                    <li>历史沿革</li>
+                    <li>现任领导</li>
+                    <li>校园风光</li>
+                </ul>
+            </li>
+            <li>
+                <span>人才培养</span>
+                <ul class="menu02">
+                    <li>计算机科学学院</li>
+                    <li>张大千美术学院</li>
+                    <li>范长江新闻学院</li>
+                    <li>数信学院</li>
+                </ul>
+            </li>
+            <li>
+                <span>科学研究</span>
+                <ul class="menu03">
+                    <li>数据恢复四川省重点实验室</li>
+                    <li>四川峨嵋武术文化基地</li>
+                    <li>四川省高等学校仿真实验室</li>
+                    <li>张大千研究中心</li>
+                    <li>长江上游鱼类资源保护实验室</li>
+                </ul>
+            </li>
+            <li>
+                <span>招生就业</span>
+                <ul class="menu04">
+                    <li>招生网</li>
+                    <li>就业创业网</li>
+                </ul>
+            </li>
+            <li>
+                <span>关于我们</span>
+                <ul class="menu05">
+                    <li>通知公告</li>
+                    <li>学术活动</li>
+                    <li>学校要闻</li>
+                    <li>校园动态</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <script>
+        var navUl = document.getElementsByClassName("navUl")[0];
+        var navUlSpan = document.querySelectorAll(".navUl span");
+        var subNavUl = document.querySelectorAll(".navUl ul");
+        var sunMenuH = [];
+        for (var a = 0; a < subNavUl.length; a++) {
+            sunMenuH[a] = subNavUl[a].childElementCount * 50;
+        }
+        navUl.addEventListener("mouseover", function (e) {
+            var index = Array.from(navUlSpan).indexOf(e.target);
+            for (let i = 0; i < subNavUl.length; i++) {
+                subNavUl[i].style.height = "0px";
+                navUlSpan[i].style.backgroundColor = "gainsboro";
+            }
+            if (index != -1) {
+                subNavUl[index].style.height = sunMenuH[index] + "px";
+                navUlSpan[index].style.backgroundColor = "yellow";
+            }
+
+        });
+        navUl.addEventListener("mouseout", function (e) {
+            var index = Array.from(navUlSpan).indexOf(e.target);
+            for (let i = 0; i < subNavUl.length; i++) {
+                subNavUl[i].style.height = "0px";
+            }
+            if (index != -1) {
+                navUlSpan[index].style.backgroundColor = "gainsboro";
+            }
+        });
+    </script>
+</body>
+
+</html>

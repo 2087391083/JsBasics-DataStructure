@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>学生信息录入</title>
+    <script src="../html/tools.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .stuMsgTab {
+            width: 60%;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        .stuMsgTab td {
+            text-align: center;
+        }
+
+        .inputBox {
+            width: 600px;
+            height: 320px;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .inputBox label {
+            display: inline-block;
+            width: 130px;
+            padding-right: 15px;
+            text-align: right;
+            line-height: 40px;
+            font-weight: bold;
+        }
+
+        tbody input {
+            width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <!-- 加正则对输入信息进行验证 -->
+
+    <div class="inputBox">
+        <!-- <form action="#"> -->
+            <h1>学生信息管理</h1>
+            <label for="xh">学号：</label>
+            <input type="text" name="xh" id="xh" />
+            <br>
+            <label for="xm">姓名：</label>
+            <input type="text" name="xm" id="xm" />
+            <br>
+            <label for="sex">性别：</label>
+            <input type="text" name="sex" id="sex" />
+            <br>
+            <label for="grade1">html+css成绩：</label>
+            <input type="text" name="grade1" id="grade1" />
+            <br>
+            <label for="grade2">js1成绩：</label>
+            <input type="text" name="grade2" id="grade2" />
+            <br>
+
+            <button id="addMsg">添加</button>
+            <input type="reset" id="resetMsg" value="重置">
+        <!-- </form> -->
+    </div>
+    <table class="stuMsgTab" border="1px solid black">
+        <thead>
+            <tr>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>html+css成绩</th>
+                <th>js1成绩</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        var tbodyContent = document.querySelector(".stuMsgTab tbody");
+        var addMsg = document.getElementById("addMsg");
+        var resetMsg = document.getElementById("resetMsg");
+        addMsg.addEventListener("click", function (e) {
+            var arrValue=[xh.value,xm.value,sex.value,grade1.value,grade2.value];
+            var Tr = document.createElement("tr");
+            tbodyContent.appendChild(Tr);
+            for(var a=0;a<arrValue.length;a++){
+                CreateNode("td", arrValue[a] , Tr);
+            }
+            var opTr = document.createElement("td");
+            Tr.appendChild(opTr);
+            var Update = document.createElement("button");
+            Update.innerHTML = "修改";
+            opTr.appendChild(Update);
+            var Delete = document.createElement("button");
+            Delete.innerHTML = "删除";
+            opTr.appendChild(Delete);
+            var flag=true;
+            Update.onclick=function (e){
+                if(flag){
+                    for(var i=0;i<Tr.children.length-1;i++){
+                        Tr.children[i].contentEditable="true";
+                    }
+                    Update.innerHTML = "保存";
+                    flag=false;
+                }else{
+                    for(var i=0;i<Tr.children.length-1;i++){
+                        Tr.children[i].contentEditable="false";
+                    }
+                    Update.innerHTML = "修改";
+                    flag=true;
+                }
+            }
+            Delete.onclick = function (e) {
+                Tr.remove();
+            }
+        });
+        resetMsg.onclick = function () {
+            xh.value = "";
+            xm.value = "";
+            sex.value = "";
+            grade1.value = "";
+            grade2.value = "";
+        }
+    </script>
+
+</html>

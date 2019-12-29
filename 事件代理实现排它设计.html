@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件代理</title>
+    <style>
+        .active {
+            background-color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- <h1>多个元素都有一样事件</h1>
+    <button class="active">aaa</button>
+    <button>aaa</button>
+    <button>a</button>
+    <button>qwe</button>
+    <button>sds</button> -->
+
+    <ul class="f">
+        <li>修改</li>
+        <li>修改</li>
+        <li>修改</li>
+        <li>修改</li>
+        <li>修改</li>
+    </ul>
+
+    <script type="text/javascript">
+        // var btns = document.querySelectorAll("button")
+        // for (var i = 0; i < btns.length; i++) {
+        //     btns[i].onclick = function () {
+        //         btns.forEach((el) => { el.style.backgroundColor = "white" })
+        //         this.style.backgroundColor = "rosybrown"
+        //     }
+        // }
+
+        var f = document.querySelector(".f")
+        f.addEventListener("click", function (e) {
+            if (e.target == this) { return }//点了父元素
+            // console.log(this)
+            // console.log(e.target)
+            Array.from(this.children).forEach((el) => { el.innerHTML = "修改" })
+            e.target.innerHTML = "保存"
+        })
+    </script>
+</body>
+
+</html>

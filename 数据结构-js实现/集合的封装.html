@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>集合相关方法的封装</title>
+</head>
+
+<body>
+
+    <script>
+        class CreateSet {
+            constructor() {
+                this.items = {};
+            }
+            add(value) {
+                if (!this.has(value)) {
+                    this.items[value] = value;
+                }
+            }
+            has(value) {
+                if (this.items.hasOwnProperty(value)) {
+                    return true;
+                }
+                return false;
+            }
+            clear() {
+                this.items = {};
+            }
+            size() {
+                return Object.keys(this.items).length;
+            }
+            values(){
+                return Object.keys(this.items);
+            }
+            //并集
+            union(otherSet) {
+                var newSet = new CreateSet();
+                let value = Object.keys(this.items);
+                for (let i = 0; i < this.size(); i++) {
+                    newSet.add(value[i]);
+                }
+                value = otherSet.values();
+                console.log(value);
+                for (let i = 0; i < value.length; i++) {
+                    newSet.add(value[i]);
+                }
+                return newSet;
+            }
+            //交集
+            intersection(otherSet){
+                var newSet = new CreateSet();
+                let values = Object.keys(this.items);
+                for(let i=0;i<values.length;i++){
+                    if(otherSet.has(values[i])){
+                        newSet.add(values[i]);
+                    }
+                }
+                return newSet;
+            }
+            //差集
+            difference(otherSet){
+                var newSet = new CreateSet();
+                let values = Object.keys(this.items);
+                for(let i=0;i<values.length;i++){
+                    if(!otherSet.has(values[i])){
+                        newSet.add(values[i]);
+                    }
+                }
+                return newSet;
+            }
+        }
+        var set1 = new CreateSet();
+        set1.add("1");
+        set1.add("2");
+        set1.add("3");
+        var set2 = new CreateSet();
+        set2.add("2");
+        set2.add("3");
+        set2.add("4");
+        var result = set1.union(set2);
+        console.log(result);
+
+        var result1 = set1.intersection(set2);
+        console.log(result1);
+
+        var result2 = set1.difference(set2);
+        console.log(result2);
+    </script>
+</body>
+
+</html>

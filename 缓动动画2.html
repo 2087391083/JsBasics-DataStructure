@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style> 
+    *{
+        padding: 0;
+        margin: 0;
+    }
+    .box01{
+        width: 448px;
+        height: 252px;
+        background-image: url(../imgs/1111.jpg);
+        background-size: 448px 252px;
+        /* background-attachment: fixed;
+        background-repeat: no-repeat; */
+        position: relative;
+        overflow: hidden;
+    }
+    .smallBox{
+        width: 448px;
+        height: 80px;
+        line-height: 80px;
+        text-align: center;
+        font-size: 20px;
+        background-color: rgba(255, 255, 0, 0.5);
+        position: absolute;
+        bottom: -80px;
+        left: 0;
+    }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td class="aa" contenteditable="true">dfkhgd</td>
+            <!-- 文本的可编辑操作 -->
+        </tr>
+    </table>
+
+    <marquee behavior="" direction="">
+        喀什不对啊是把进寺躬蹈矢石西三百个idhkasdx不是哦海灯法卡啊老鼠过街快速陈女士哦哈三年级阿拉丁神灯
+    </marquee>
+
+    <div class="box01">
+        <div class="smallBox">
+            欢迎选购！
+        </div>
+    </div>
+    <script>
+        // var aaa=document.getElementsByClassName("aa")[0];
+        // aaa.contentEditable=true;
+
+        var box01=document.getElementsByClassName("box01")[0];
+        var smallBox=document.getElementsByClassName("smallBox")[0];
+        var timer1,timer2;
+        box01.onmouseenter=function (e){
+            clearInterval(timer2);
+            timer1=setInterval(function(){
+                var smallBoxH=parseInt( getComputedStyle(smallBox).bottom );
+                smallBox.style.bottom = smallBoxH + (0 - smallBoxH)*0.5 + "px";
+            },10);
+        }
+
+        box01.onmouseleave=function (e){
+            clearInterval(timer1);
+            timer2=setInterval(function(){
+                var smallBoxH=parseInt( getComputedStyle(smallBox).bottom );
+                smallBox.style.bottom = smallBoxH + (-80 - smallBoxH)*0.5 + "px";
+            },10);
+        }
+    </script>
+</body>
+</html>

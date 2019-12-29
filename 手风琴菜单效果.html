@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .tabs>li {
+            width: 100px;
+            height: 50px;
+            background-color: greenyellow;
+            margin-bottom: 2px;
+            list-style: none;
+            line-height: 50px;
+            text-align: center;
+        }
+
+        .menu {
+            height: 0;
+            display: none;
+            overflow: hidden;
+        }
+
+        .menu>li {
+            width: 130px;
+            height: 45px;
+            background-color: palevioletred;
+            margin-bottom: 1px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="tabs">
+        <li>菜单1</li>
+
+        <ul class="menu menu01">
+            <li>1子菜单01</li>
+            <li>1子菜单02</li>
+            <li>1子菜单03</li>
+        </ul>
+
+        <li>菜单2</li>
+        <ul class="menu menu02">
+            <li>1子菜单01</li>
+            <li>1子菜单02</li>
+            <li>1子菜单03</li>
+        </ul>
+
+        <li>菜单3</li>
+        <ul class="menu menu03">
+            <li>1子菜单01</li>
+            <li>1子菜单02</li>
+            <li>1子菜单03</li>
+        </ul>
+
+        <!-- <li>菜单4</li>
+        <ul class="menu menu04">
+            <li>1子菜单01</li>
+            <li>1子菜单02</li>
+            <li>1子菜单03</li>
+        </ul>
+
+        <li>菜单5</li>
+        <ul class="menu menu05">
+            <li>1子菜单01</li>
+            <li>1子菜单02</li>
+            <li>1子菜单03</li>
+        </ul> -->
+
+    </ul>
+
+    <script>
+        var tabs = document.querySelector(".tabs");
+        var tabsLi = document.querySelectorAll(".tabs>li");
+        var menu = document.querySelectorAll(".tabs>.menu");
+
+        tabs.addEventListener("click", function (e) {
+            for (var j = 0; j < menu.length; j++) {
+                menu[j].style.display = "none";
+            }
+            for (let i = 0; i < tabsLi.length; i++) {
+                if (e.target == tabsLi[i]) {
+                    menu[i].style.display = "block";
+                    var h=0;
+                    var timer=setInterval(function (){
+                        h+=10;
+                        menu[i].style.height=h + "px";
+                        if(h==140){
+                            clearInterval(timer);
+                        }
+                    },5);
+                    console.log(i);
+                }
+            }
+            console.log(e.target);
+
+        });
+        console.log(tabs);
+
+    </script>
+</body>
+
+</html>

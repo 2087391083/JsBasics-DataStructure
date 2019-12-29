@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #mycanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="mycanvas" width="650" height="450">您的浏览器不支持canvas标签</canvas>
+    <button id="btn1">开始游戏</button>
+    <button id="btn2">暂停游戏</button>
+    <button id="btn3">结束游戏</button>
+    <button id="btn4">再来一次</button>
+
+    <script>
+        var mycanvas = document.getElementById("mycanvas");
+        var ctx = mycanvas.getContext("2d");
+        var downNum = 39;
+
+        class Game {
+            constructor() {
+                this.timer1 = null;
+                this.newSnake = new snake(5);
+                this.newSnake.snakeDraw();
+            }
+            //开始游戏
+            init() {
+                clearInterval(this.timer1);
+                this.timer1 = setInterval(() => {
+                    if (this.newSnake.type) {
+                        this.newSnake.snakeMove();
+                        this.newSnake.snakeDraw();
+                    } else {
+                        this.end();
+                    }
+                }, 400);
+            }
+            //游戏暂停
+            stop() {
+                clearInterval(this.timer1);
+            }
+            //游戏结束
+            end() {
+                clearInterval(this.timer1);
+                ctx.clearRect(0, 0, mycanvas.width, mycanvas.height);
+                ctx.fillStyle = "red"
+                ctx.font = "30px 黑体";
+                ctx.fillText("Game Over!", 220, 220);
+                alert("你的得分是：" + this.newSnake.grade + "分。");
+            }
+            //重新开始游戏
+            restart() {
+                ctx.clearRect(0, 0, mycanvas.width, mycanvas.height);
+                clearInterval(this.timer1);
+                this.newSnake = new snake(5);
+                this.newSnake.snakeDraw();
+                this.init();
+            }
+        }
+        //绘制小矩形
+        class rect {
+            constructor(x, y, w, h, color) {
+                this.x = x;
+                this.y = y;
+                this.w = w;
+                this.h = h;
+                this.color = color;
+            }
+            drawRect() {
+                ctx.beginPath();
+                ctx.fillStyle = this.color;
+                ctx.rect(this.x, this.y, this.w, this.h, this.color);
+                ctx.fill();
+                ctx.closePath();
+            }
+        }
+
+        //蛇类
+        class snake {
+            constructor(snakeLen) {
+                this.snakeArr = [];
+                this.head = null;
+                this.type = true;
+                this.snakeLen = snakeLen;
+                this.foodX = 100;
+                this.foodY = 200;
+                this.grade = 0;
+                for (let i = 0; i < snakeLen; i++) {
+                    var newRect = new rect(i * 25, 100, 25, 25, "yellow");
+                    this.snakeArr.splice(0, 0, newRect);
+                }
+                console.log(this.snakeArr);
+                this.head = this.snakeArr[0];
+                this.head.color = "green";
+                this.isFood = false;
+            }
+            snakeDraw() {
+                for (let i = 0; i < this.snakeArr.length; i++) {
+                    this.snakeArr[i].drawRect();
+                }
+            }
+            //蛇移动
+            snakeMove() {
+                if (this.judge()) {
+                    this.drection = downNum;
+                    ctx.clearRect(0, 0, mycanvas.width, mycanvas.height);
+                    let newRect = new rect(this.head.x, this.head.y, this.head.w, this.head.h, "yellow");
+                    this.snakeArr.splice(1, 0, newRect);
+                    this.snakeArr.pop();
+                    if (this.drection == 37) {
+                        this.head.x -= 25;
+                    } else if (this.drection == 38) {
+                        this.head.y -= 25;
+                    } else if (this.drection == 39) {
+                        this.head.x += this.head.w;
+                    } else if (this.drection == 40) {
+                        this.head.y += 25;
+                    }
+                    this.food();
+                }
+            }
+            //随机投放食物  投放食物到自己身体上时，重新生成随机食物坐标
+            food() {
+                let isOnSnake = true;
+                while (isOnSnake) {
+                    isOnSnake=false;
+                    if (this.isEat()) {
+                        this.foodX = Math.round(Math.random() * 26) * 25;
+                        this.foodY = Math.round(Math.random() * 18) * 25;
+                        for (let i = 0; i < this.snakeArr.length; i++) {
+                            if (this.foodX == this.snakeArr[i] && this.foodY == this.snakeArr[i]) {
+                                isOnSnake=true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                let newRect = new rect(this.foodX, this.foodY, 25, 25, "black");
+                newRect.drawRect();
+            }
+            //是否吃到食物
+            isEat() {
+                if (this.head.x == this.foodX && this.head.y == this.foodY) {
+                    //蛇变长
+                    let endX = this.snakeArr[this.snakeArr.length - 1].x;
+                    let endY = this.snakeArr[this.snakeArr.length - 1].y;
+                    let newRect = new rect(endX, endY, this.head.w, this.head.h, "yellow");
+                    this.snakeArr.push(newRect);
+                    newRect.drawRect();
+                    this.grade++;
+                    return true;
+                }
+                return false;
+            }
+            //边界判断  是否吃到自己
+            judge() {
+                if (this.head.x < 0 || this.head.y < 0 || this.head.y > mycanvas.height || this.head.x > mycanvas.width) {
+                    this.type = false;
+                    return false;
+                } else {
+                    for (let i = 1; i < this.snakeArr.length; i++) {
+                        // console.log(this.head.x, this.snakeArr[i].x, this.head.y, this.snakeArr[i].y);
+                        if (this.head.x == this.snakeArr[i].x && this.head.y == this.snakeArr[i].y) {
+                            this.type = false;
+                            return false;
+                        }
+                    }
+                    this.type = true;
+                    return true;
+                }
+            }
+        }
+
+        var btn1 = document.getElementById("btn1");
+        var btn2 = document.getElementById("btn2");
+        var btn3 = document.getElementById("btn3");
+        var btn4 = document.getElementById("btn4");
+        var newGame = new Game();
+
+        //按键
+        window.onkeydown = function (e) {
+            switch (e.keyCode) {
+                case 37:
+                    if (downNum != 39) {
+                        downNum = 37;
+                    }
+                    console.log(37)
+                    break;
+                case 38:
+                    if (downNum != 40) {
+                        downNum = 38;
+                    }
+                    console.log(38)
+                    break;
+                case 39:
+                    if (downNum != 37) {
+                        downNum = 39;
+                    }
+                    console.log(39)
+                    break;
+                case 40:
+                    if (downNum != 38) {
+                        downNum = 40;
+                    }
+                    console.log(40)
+                    break;
+            }
+        }
+
+        btn1.onclick = function () {
+            newGame.init();
+        }
+        btn2.onclick = function () {
+            newGame.stop();
+        }
+        btn3.onclick = function () {
+            newGame.end();
+        }
+        btn4.onclick = function () {
+            newGame.restart();
+        }
+
+    </script>
+</body>
+
+</html>
+
+<!-- 
+    任务：1、蛇撞墙后结束游戏；+
+         2、蛇碰到自己的身体后游戏结束； +
+         3、随机投放食物；  +
+         4、蛇碰到食物后自己的身体变长，并加分； +
+ -->

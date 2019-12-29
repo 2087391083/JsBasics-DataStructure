@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>双向链表实现二叉树</title>
+</head>
+
+<body>
+    <script>
+        class BSTNode {
+            constructor(data) {
+                this.right = null;
+                this.data = data;
+                this.left = null;
+            }
+        }
+        // class CLink {
+        //     constructor(data) {
+        //         this.prev = null;
+        //         this.data = data;
+        //         this.next = null;
+        //     }
+        // }
+        class BST {
+            constructor() {
+                this.head = null;
+                this.length = 0;
+            }
+            insert(data) {
+                let bstNode = new BSTNode(data);
+                if (this.root == null) {
+                    // this.root = bstNode;
+                } else {
+                    this.insertNode(this.root, bstNode);
+                }
+                return bstNode;
+            }
+            insertNode(node, newnode) {
+                if (node.data > newnode.data) {
+                    if (node.left == null) {
+                        node.left = newnode;
+                    } else {
+                        this.insertNode(node.left, newnode);
+                    }
+                } else {
+                    if (node.right == null) {
+                        node.right = newnode;
+                    } else {
+                        this.insertNode(node.right, newnode);
+                    }
+                }
+            }
+            append(data) {
+                let node = this.insert(data);
+                let current = this.head;
+                let clink = new CLink(node);
+                if (this.head == null) {
+                    this.head = clink;
+                    clink.next = this.head;
+                    clink.prev = this.head;
+                } else {
+                    this.head = clink;
+                    clink.next = this.head;
+                    clink.prev = this.head;
+                }
+                this.length++;
+            }
+        }
+        var bst = new BST();
+        // bst.insert(11);
+        // bst.insert(7);
+        // bst.insert(15);
+        // bst.insert(5);
+        // bst.insert(3);
+        // bst.insert(9);
+        // bst.insert(8);
+        // bst.insert(10);
+        // bst.insert(13);
+        // bst.insert(12);
+        // bst.insert(14);
+        // bst.insert(20);
+        // bst.insert(18);
+        // bst.insert(25);
+        // bst.insert(19);
+        bst.append(45);
+        console.log(bst);
+    </script>
+</body>
+
+</html>

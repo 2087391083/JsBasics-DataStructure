@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用户首页</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .head {
+            width: 100%;
+            height: 100px;
+            background-color: bisque;
+        }
+
+        .main {
+            width: 100%;
+            display: flex;
+        }
+
+        .myleft {
+            width: 70%;
+            height: 400px;
+            background-color: goldenrod;
+        }
+
+        .myright {
+            width: 30%;
+            height: 400px;
+            background-color: greenyellow;
+        }
+
+        .myleftTop {
+            width: 100%;
+            height: 20px;
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div id="app">
+        <myhead></myhead>
+        <div class="main">
+            <myleft>
+                <slot>
+                    <myleftTop></myleftTop>
+                </slot>
+            </myleft>
+            <myright></myright>
+        </div>
+    </div> -->
+
+    <!-- header部分 -->
+    <!-- <template id="myhead">
+        <div class="head">
+            <h1>我是header部分</h1>
+        </div>
+    </template> -->
+
+    <!-- 左侧 -->
+    <!-- <template id="myleft">
+        <div class="myleft">
+            <h1>左侧</h1>
+        </div>
+    </template> -->
+
+    <!-- <template id="myleftTop">
+        <div class="myleftTop">
+            <h1>左侧内容1</h1>
+        </div>
+    </template> -->
+
+    <!-- 右侧 -->
+    <!-- <template id="myright">
+        <div class="myright">
+            <h1>右侧</h1>
+        </div>
+    </template> -->
+
+    <!-- <div id="app2">
+        <div>
+            <a href="#myindex" @click="currentTab='myindex'">首页</a>
+            <a href="#mylist"  @click="currentTab='mylist'">列表</a>
+            <a href="#myabout"  @click="currentTab='myabout'">关于我们</a>
+        </div>
+        <component :is="currentTab"></component>
+    </div> -->
+
+    <!-- 首页切换 -->
+    <template id="myindex">
+        <div>
+            首页内容
+        </div>
+    </template>
+    <!-- 列表页面切换 -->
+    <template id="mylist">
+        <div>
+            列表内容
+            <br>
+            <ul>
+                <li v-for="item in bookkindlist"> {{item.name}} </li>
+            </ul>
+        </div>
+    </template>
+    <!-- 关于我们页面内容 -->
+    <template id="myabout">
+        <div>
+            关于我们页面内容---{{$route.params.aid}}
+        </div>
+    </template>
+
+    <div id="app3">
+        <div>
+            <router-link to="/">首页</router-link>
+            <router-link to="/list?fid=0">列表1</router-link>
+            <router-link to="/list?fid=27">列表2</router-link>
+            <router-link to="/list?fid=9">列表3</router-link>
+            <router-link to="/about">关于我们</router-link>
+        </div>
+        <router-view></router-view>
+    </div>
+</body>
+
+</html>

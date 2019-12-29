@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>多级联动</title>
+    <script src="../DataJs/multi_cascade_data.js"></script>
+    <script src="../html/tools.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .multi {
+            margin: 50px 100px;
+            width: 150px;
+            height: 50px;
+            display: inline-block;
+            display: flex;
+        }
+
+        ul {
+            display: flex;
+            flex-direction: column;
+        }
+
+        li {
+            list-style: none;
+            width: 150px;
+            height: 50px;
+            background-color: antiquewhite;
+            line-height: 50px;
+            text-align: center;
+            margin-bottom: 1px;
+            cursor: pointer;
+
+        }
+
+        .multi {
+            display: flex;
+        }
+
+        .multi>div {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="multi">
+
+    </div>
+    <script>
+
+    </script>
+    <script type="text/javascript">
+        var multi = document.getElementsByClassName("multi")[0];
+        console.log(data);
+        var div1 = CreateNode("div", "", multi);
+        var ulOne = CreateNode("ul", "", div1);
+        var div2 = CreateNode("div", "", multi);
+        var ulTwo = CreateNode("ul", "", div2);
+        var div3 = CreateNode("div", "", multi);
+        var ulThree = CreateNode("ul", "", div3);
+        function multiFn(oneData, someDiv, someUl, callback) {
+            for (let i = 0; i < oneData.length; i++) {
+                let lis = CreateNode("li", oneData[i].name || oneData[i], someUl);
+                lis.onclick = callback;
+                // console.log(lis);
+                someDiv.append(someUl);
+            }
+        }
+        multiFn(data, div1, ulOne, function () {
+            let reTwo = Array.from(ulTwo.children);
+            if (reTwo.length != 0) {
+                reTwo.forEach((item) => {
+                    item.remove();
+                });
+            }
+            let reThree1 = Array.from(ulThree.children);
+            if (reThree1.length != 0) {
+                reThree1.forEach((item) => {
+                    item.remove();
+                });
+            }
+            var that = this;
+            multiFn(data[this.index()].next, div2, ulTwo, function () {
+                let reThree = Array.from(ulThree.children);
+                if (reThree.length != 0) {
+                    reThree.forEach((item) => {
+                        item.remove();
+                    });
+                }
+                multiFn(data[that.index()].next[this.index()].next, div3, ulThree, function () {
+
+                });
+            });
+        });
+        Object.prototype.index = function () {
+            var arr = this.parentElement.children;
+            for (var i = 0; i < arr.length; i++) {
+                if (this == arr[i]) {
+                    return i
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>工作表格的隔行变色</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .tab {
+            width: 80%;
+            height: 500px;
+            margin: 0px auto 20px;
+            border-collapse: collapse;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .tab td {
+            cursor: pointer;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 20px auto;
+
+        }
+    </style>
+</head>
+
+<body>
+    <h2>表格的静态隔行变色</h2>
+    <table class="tab tab01" border="1px solid black">
+        <tbody class="tbodyTab01">
+            <tr>
+                <td>aaa1</td>
+                <td>aaa2</td>
+                <td>aaa3</td>
+                <td>aaa4</td>
+                <td>aaa5</td>
+                <td>aaa6</td>
+                <td>aaa7</td>
+                <td>aaa8</td>
+            </tr>
+            <tr>
+                <td>aaa1</td>
+                <td>aaa2</td>
+                <td>aaa3</td>
+                <td>aaa4</td>
+                <td>aaa5</td>
+                <td>aaa6</td>
+                <td>aaa7</td>
+                <td>aaa8</td>
+            </tr>
+            <tr>
+                <td>aaa1</td>
+                <td>aaa2</td>
+                <td>aaa3</td>
+                <td>aaa4</td>
+                <td>aaa5</td>
+                <td>aaa6</td>
+                <td>aaa7</td>
+                <td>aaa8</td>
+            </tr>
+            <tr>
+                <td>aaa1</td>
+                <td>aaa2</td>
+                <td>aaa3</td>
+                <td>aaa4</td>
+                <td>aaa5</td>
+                <td>aaa6</td>
+                <td>aaa7</td>
+                <td>aaa8</td>
+            </tr>
+            <tr>
+                <td>aaa1</td>
+                <td>aaa2</td>
+                <td>aaa3</td>
+                <td>aaa4</td>
+                <td>aaa5</td>
+                <td>aaa6</td>
+                <td>aaa7</td>
+                <td>aaa8</td>
+            </tr>
+            <tr>
+                <td>aaa1</td>
+                <td>aaa2</td>
+                <td>aaa3</td>
+                <td>aaa4</td>
+                <td>aaa5</td>
+                <td>aaa6</td>
+                <td>aaa7</td>
+                <td>aaa8</td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        var tab01 = document.querySelector(".tab01");
+        var tbodyTab01 = document.getElementsByClassName("tbodyTab01")[0];
+        for (var i = 0; i < tbodyTab01.children.length; i++) {
+            if (i % 2 == 0) {
+                tbodyTab01.children[i].style.backgroundColor = "#B5A642";
+            } else {
+                tbodyTab01.children[i].style.backgroundColor = "#DBDB70";
+            }
+        }
+    </script>
+
+    <h2>表格行变色</h2>
+    <table class="tab tab02" border="1px solid black">
+        <tbody class="tbodyTab02">
+            <tr>
+                <td>aaa1</td>
+                <td>aaa2</td>
+                <td>aaa3</td>
+                <td>aaa4</td>
+                <td>aaa5</td>
+                <td>aaa6</td>
+                <td>aaa7</td>
+                <td>aaa8</td>
+            </tr>
+            <tr>
+                <td>aaa1</td>
+                <td>aaa2</td>
+                <td>aaa3</td>
+                <td>aaa4</td>
+                <td>aaa5</td>
+                <td>aaa6</td>
+                <td>aaa7</td>
+                <td>aaa8</td>
+            </tr>
+            <tr>
+                <td>aaa1</td>
+                <td>aaa2</td>
+                <td>aaa3</td>
+                <td>aaa4</td>
+                <td>aaa5</td>
+                <td>aaa6</td>
+                <td>aaa7</td>
+                <td>aaa8</td>
+            </tr>
+            <tr>
+                <td>aaa1</td>
+                <td>aaa2</td>
+                <td>aaa3</td>
+                <td>aaa4</td>
+                <td>aaa5</td>
+                <td>aaa6</td>
+                <td>aaa7</td>
+                <td>aaa8</td>
+            </tr>
+            <tr>
+                <td>aaa1</td>
+                <td>aaa2</td>
+                <td>aaa3</td>
+                <td>aaa4</td>
+                <td>aaa5</td>
+                <td>aaa6</td>
+                <td>aaa7</td>
+                <td>aaa8</td>
+            </tr>
+            <tr>
+                <td>aaa1</td>
+                <td>aaa2</td>
+                <td>aaa3</td>
+                <td>aaa4</td>
+                <td>aaa5</td>
+                <td>aaa6</td>
+                <td>aaa7</td>
+                <td>aaa8</td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        var tab02 = document.getElementsByClassName("tab02")[0];
+        var tbodyTab02 = document.getElementsByClassName("tbodyTab02")[0];
+        tbodyTab02.addEventListener("click", function (e) {
+            if (e.target != tbodyTab02) {
+                for (var i = 0; i < this.children.length; i++) {
+                    this.children[i].style.backgroundColor = "white";
+                }
+                e.target.parentNode.style.backgroundColor = "#DBDB70";
+            }
+        });
+    </script>
+
+
+    <h2>表格列变色</h2>
+    <table class="tab tab03" border="1px solid black">
+        <tbody class="tbodyTab03">
+            <tr>
+                <td>aaa1</td>
+                <td>aaa2</td>
+                <td>aaa3</td>
+                <td>aaa4</td>
+                <td>aaa5</td>
+                <td>aaa6</td>
+                <td>aaa7</td>
+                <td>aaa8</td>
+            </tr>
+            <tr>
+                <td>aaa1</td>
+                <td>aaa2</td>
+                <td>aaa3</td>
+                <td>aaa4</td>
+                <td>aaa5</td>
+                <td>aaa6</td>
+                <td>aaa7</td>
+                <td>aaa8</td>
+            </tr>
+            <tr>
+                <td>aaa1</td>
+                <td>aaa2</td>
+                <td>aaa3</td>
+                <td>aaa4</td>
+                <td>aaa5</td>
+                <td>aaa6</td>
+                <td>aaa7</td>
+                <td>aaa8</td>
+            </tr>
+            <tr>
+                <td>aaa1</td>
+                <td>aaa2</td>
+                <td>aaa3</td>
+                <td>aaa4</td>
+                <td>aaa5</td>
+                <td>aaa6</td>
+                <td>aaa7</td>
+                <td>aaa8</td>
+            </tr>
+            <tr>
+                <td>aaa1</td>
+                <td>aaa2</td>
+                <td>aaa3</td>
+                <td>aaa4</td>
+                <td>aaa5</td>
+                <td>aaa6</td>
+                <td>aaa7</td>
+                <td>aaa8</td>
+            </tr>
+            <tr>
+                <td>aaa1</td>
+                <td>aaa2</td>
+                <td>aaa3</td>
+                <td>aaa4</td>
+                <td>aaa5</td>
+                <td>aaa6</td>
+                <td>aaa7</td>
+                <td>aaa8</td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        var tbodyTab03 = document.getElementsByClassName("tbodyTab03")[0];
+        var tbodyTab03Tr = document.querySelectorAll(".tbodyTab03 tr");
+        tbodyTab03.addEventListener("click", function (e) {
+            for (var i = 0; i < e.target.parentNode.children.length; i++) {
+                for (var j = 0; j < tbodyTab03Tr.length; j++) {
+                    tbodyTab03Tr[j].children[i].style.backgroundColor = "white";
+                }
+                if (e.target.parentNode.children[i] == e.target) {
+                    for (var j = 0; j < tbodyTab03Tr.length; j++) {
+                        tbodyTab03Tr[j].children[i].style.backgroundColor = "#DBDB70";
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

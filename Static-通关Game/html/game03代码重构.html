@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js游戏</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .gamebox {
+            width: 576px;
+            height: 400px;
+            background-color: antiquewhite;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+        }
+
+        .gradeBox {
+            width: 300px;
+            height: 50px;
+            margin: 30px auto;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 定义地图的盒子 -->
+    <div class="gamebox">
+
+    </div>
+    <div class="gradeBox"></div>
+    <script>
+        function computedSize(num, x, y) {
+            var grade = 50;
+            var doorKey = 0;
+            var boomCount = null;
+            var gamebox = document.getElementsByClassName("gamebox")[0];
+            var gradeBox = document.getElementsByClassName("gradeBox")[0];
+            var arrMap = arrMap;
+            var x = x;
+            var y = y;
+            var num = num;
+            var arrMap = [];
+            var arraMapAll = [];
+
+            //设置地图参数
+            //第一层 下标为 0
+            this.SetMap = function () {
+                //第一层 下标0
+                var arr = [];
+                for (let i = 0; i < x; i++) {
+                    arr.push([]);
+                    for (var j = 0; j < y; j++) {
+                        var arrValue = Math.round(Math.random() * 8 + 1);
+                        if (arrValue == 1 || arrValue == 6 || arrValue == 4 || arrValue == 3 || arrValue == 8 || arrValue == 9) {
+                            arrValue = 0;
+                        } else if (arrValue == 2) {
+                            arrValue = 1;
+                        } else if (arrValue == 7) {
+                            arrValue = 7;
+                        } else if (arrValue == 5) {
+                            arrValue = 5;
+                        }
+                        if (i == 5 && j == 5) {
+                            arrValue = 2;//人物
+                        }
+                        if ((i == 2 && j == 0) || (i == 2 && j == 1) || (i == 2 && j == 2) || (i == 2 && j == 3) || (i == 3 && j == 3) || (i == 4 && j == 3) || (i == 5 && j == 3) || (i == 5 && j == 2) || (i == 5 && j == 1)) {
+                            arrValue = 9;//墙
+                        }
+                        if (i == 5 && j == 0) {
+                            arrValue = 8;//门
+                        }
+                        if ((i == 5 && j == 7) || (i == 6 && j == 5)) {
+                            arrValue = 3;//钥匙
+                        }
+                        if (i == 3 && j == 0) {
+                            arrValue = 4;//上楼层
+                        }
+                        if (i == 9 && j == 11) {
+                            arrValue = 6;//下楼层
+                        }
+                        arr[i][j] = {
+                            value: arrValue,
+                            height: null,
+                            width: null
+                        };
+                    }
+                }
+                arraMapAll.push(arr);
+
+                //第二层 下标1
+                var arr = [];
+                for (let i = 0; i < x; i++) {
+                    arr.push([]);
+                    for (var j = 0; j < y; j++) {
+                        var arrValue = Math.round(Math.random() * 8 + 1);
+                        if (arrValue == 1 || arrValue == 6 || arrValue == 4 || arrValue == 3 || arrValue == 8 || arrValue == 9) {
+                            arrValue = 0;
+                        } else if (arrValue == 2) {
+                            arrValue = 1;
+                        } else if (arrValue == 7) {
+                            arrValue = 7;
+                        } else if (arrValue == 5) {
+                            arrValue = 5;
+                        }
+                        if (i == 6 && j == 6) {
+                            arrValue = 2;//人物
+                        }
+                        if ((i == 2 && j == 0) || (i == 2 && j == 1) || (i == 2 && j == 2) || (i == 2 && j == 3) || (i == 3 && j == 3) || (i == 4 && j == 3) || (i == 5 && j == 3) || (i == 5 && j == 2) || (i == 5 && j == 1)) {
+                            arrValue = 9;//墙
+                        }
+                        if (i == 5 && j == 0) {
+                            arrValue = 8;//门
+                        }
+                        if ((i == 5 && j == 7) || (i == 6 && j == 5)) {
+                            arrValue = 3;//钥匙
+                        }
+                        if (i == 3 && j == 0) {
+                            arrValue = 4;//上楼层
+                        }
+                        if (i == 9 && j == 11) {
+                            arrValue = 6;//下楼层
+                        }
+                        arr[i][j] = {
+                            value: arrValue,
+                            height: null,
+                            width: null
+                        };
+                    }
+                }
+                arraMapAll.push(arr);
+
+                //第三层 下标为2
+                var arr = [];
+                for (let i = 0; i < x; i++) {
+                    arr.push([]);
+                    for (var j = 0; j < y; j++) {
+                        var arrValue = Math.round(Math.random() * 8 + 1);
+                        if (arrValue == 1 || arrValue == 6 || arrValue == 4 || arrValue == 3 || arrValue == 8 || arrValue == 9) {
+                            arrValue = 0;
+                        } else if (arrValue == 2) {
+                            arrValue = 1;
+                        } else if (arrValue == 7) {
+                            arrValue = 7;
+                        } else if (arrValue == 5) {
+                            arrValue = 5;
+                        }
+                        if (i == 5 && j == 5) {
+                            arrValue = 2;//人物
+                        }
+                        if ((i == 2 && j == 0) || (i == 2 && j == 1) || (i == 2 && j == 2) || (i == 2 && j == 3) || (i == 3 && j == 3) || (i == 4 && j == 3) || (i == 5 && j == 3) || (i == 5 && j == 2) || (i == 5 && j == 1)) {
+                            arrValue = 9;//墙
+                        }
+                        if (i == 5 && j == 0) {
+                            arrValue = 8;//门
+                        }
+                        if ((i == 5 && j == 7) || (i == 6 && j == 5)) {
+                            arrValue = 3;//钥匙
+                        }
+                        if (i == 3 && j == 0) {
+                            arrValue = 4;//上楼层
+                        }
+                        if (i == 9 && j == 11) {
+                            arrValue = 6;//下楼层
+                        }
+                        arr[i][j] = {
+                            value: arrValue,
+                            height: null,
+                            width: null
+                        };
+                    }
+                }
+                arraMapAll.push(arr);
+
+                arrMap = arraMapAll[num];
+                console.log(arraMapAll);
+                console.log(arrMap);
+            };
+
+            //创建节点
+            this.createDom = function () {
+                // console.log(arrMap);
+                this.showMsg();
+                gamebox.innerHTML = "";
+                var gameboxH = parseInt(getComputedStyle(gamebox).height);
+                var gameboxW = parseInt(getComputedStyle(gamebox).width);
+                for (let i = 0; i < x; i++) {
+                    for (let j = 0; j < y; j++) {
+                        arrMap[i][j].height = gameboxH / arrMap.length;
+                        arrMap[i][j].width = gameboxW / arrMap[i].length;
+                        var dom = document.createElement("img");
+                        if (arrMap[i][j].value == 0) {
+                            dom.src = "../imgs/背景.png";
+                        } else if (arrMap[i][j].value == 1) {
+                            dom.src = "../imgs/怪1.png";
+                        } else if (arrMap[i][j].value == 2) {
+                            dom.src = "../imgs/人物.png";
+                        } else if (arrMap[i][j].value == 3) {
+                            dom.src = "../imgs/钥匙1.png";
+                        } else if (arrMap[i][j].value == 4) {
+                            dom.src = "../imgs/楼梯1.png";
+                        } else if (arrMap[i][j].value == 5) {
+                            dom.src = "../imgs/怪5.png";
+                        } else if (arrMap[i][j].value == 6) {
+                            dom.src = "../imgs/楼梯2.png";
+                        } else if (arrMap[i][j].value == 7) {
+                            dom.src = "../imgs/怪7.png";
+                        } else if (arrMap[i][j].value == 8) {
+                            dom.src = "../imgs/门1.png";
+                        } else if (arrMap[i][j].value == 9) {
+                            dom.src = "../imgs/墙.png";
+                        }
+                        dom.style.width = arrMap[i][j].width + "px";
+                        dom.style.height = arrMap[i][j].height + "px";
+                        dom.style.margin = "0";
+                        dom.style.padding = "0";
+                        gamebox.style.fontSize = "0";
+                        gamebox.appendChild(dom);
+                    }
+                }
+            };
+            this.getMap = function (num) {
+                if (num >= 0 && num <= arraMapAll.length - 1) {
+                    arrMap = arraMapAll[num];
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            this.init = function () {
+                this.SetMap();
+                boomCount = this.isExitsBoom(arrMap);
+                console.log(num)
+                if (this.getMap(num)) {
+                    this.createDom();
+                    this.PersonMove();
+                } else {
+                    return false;
+                }
+            };
+            //人物移动
+            this.PersonMove = function () {
+                var that = this;
+                this.PersonPosition();
+                onkeydown = function (e) {
+                    switch (e.keyCode) {
+                        case 37:
+                            that.PersonChange(37, that.PersonPosition()[0], that.PersonPosition()[1]);
+                            console.log("向左");
+                            break;
+                        case 38:
+                            that.PersonChange(38, that.PersonPosition()[0], that.PersonPosition()[1]);
+                            console.log("向上");
+                            break;
+                        case 39:
+                            that.PersonChange(39, that.PersonPosition()[0], that.PersonPosition()[1]);
+                            console.log("向右");
+                            break;
+                        case 40:
+                            that.PersonChange(40, that.PersonPosition()[0], that.PersonPosition()[1]);
+                            console.log("向下");
+                            break;
+                    }
+                }
+            };
+            //获取人物所在的坐标位置
+            this.PersonPosition = function () {
+                for (let i = 0; i < arrMap.length; i++) {
+                    for (let j = 0; j < arrMap[i].length; j++) {
+                        if (arrMap[i][j].value == 2) {
+                            return [i, j];
+                        }
+                    }
+                }
+            };
+            //人物移动时交换位置
+            this.PersonChange = function (keyDownNum, x, y) {
+                // console.log(boomCount);
+                if (boomCount == 0) {
+                    if (confirm("恭喜你成功通关，是否再来一次吗？")) {
+                        window.location.reload();
+                    } else {
+                        alert("谢谢您的使用，欢迎下次再来！");
+                        window.close();
+                    }
+                }
+                if (grade > 0) {
+                    if (keyDownNum == 37 && this.judege(x, y - 1) && this.EatAnimal(x, y - 1)) {
+                        console.log(arrMap);
+                        this.getGrade(x, y - 1);
+                        let temp = arrMap[x][y];
+                        arrMap[x][y] = arrMap[x][y - 1];
+                        arrMap[x][y - 1] = temp;
+                    } else if (keyDownNum == 38 && this.judege(x - 1, y) && this.EatAnimal(x - 1, y)) {
+                        this.getGrade(x - 1, y);
+                        let temp = arrMap[x][y];
+                        arrMap[x][y] = arrMap[x - 1][y];
+                        arrMap[x - 1][y] = temp;
+                    } else if (keyDownNum == 39 && this.judege(x, y + 1) && this.EatAnimal(x, y + 1)) {
+                        this.getGrade(x, y + 1);
+                        let temp = arrMap[x][y];
+                        arrMap[x][y] = arrMap[x][y + 1];
+                        arrMap[x][y + 1] = temp;
+                    } else if (keyDownNum == 40 && this.judege(x + 1, y) && this.EatAnimal(x + 1, y)) {
+                        this.getGrade(x + 1, y);
+                        let temp = arrMap[x][y];
+                        arrMap[x][y] = arrMap[x + 1][y];
+                        arrMap[x + 1][y] = temp;
+                    }
+                    //更新地图
+                    this.createDom();
+                } else {
+                    grade = 0;
+                    this.showMsg();
+                    if (confirm("游戏结束，是否再来一次？")) {
+                        grade = 50;
+                        window.location.reload();
+                    } else {
+                        alert("谢谢您的使用，欢迎下次再来！");
+                        window.close();
+                    }
+                }
+                this.showMsg();
+            };
+            //边界断定
+            this.judege = function (nextX, nextY) {
+                if (nextX < 0 || nextX > x - 1 || nextY < 0 || nextY > y - 1 || arrMap[nextX][nextY].value == 9) {
+                    return false;
+                } else {
+                    return true;
+                }
+            };
+            //遇到怪兽和得分
+            this.EatAnimal = function (nextX, nextY) {
+                if (arrMap[nextX][nextY].value == 1) {
+                    arrMap[nextX][nextY].value = 0;
+                    grade += 3;
+                } else if (arrMap[nextX][nextY].value == 5) {
+                    arrMap[nextX][nextY].value = 0;
+                    grade += 15;
+                } else if (arrMap[nextX][nextY].value == 7) {
+                    boomCount--;
+                    arrMap[nextX][nextY].value = 0;
+                    grade -= 10;
+                } else if (arrMap[nextX][nextY].value == 3) {
+                    arrMap[nextX][nextY].value = 0;
+                    doorKey++;
+                    console.log(doorKey);
+                } else if (arrMap[nextX][nextY].value == 8) {
+                    if (doorKey) {
+                        doorKey--;
+                        arrMap[nextX][nextY].value = 0;
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else if (arrMap[nextX][nextY].value == 4) {
+                    num++;
+                    console.log(num);
+                    if (this.getMap(num)) {
+                        this.createDom();
+                        this.PersonMove();
+                        return false;
+                    } else {
+                        num=3;
+                        return false;
+                    }
+                } else if (arrMap[nextX][nextY].value == 6) {
+                    num--;
+                    console.log(num);
+                    if (this.getMap(num)) {
+                        this.createDom();
+                        this.PersonMove();
+                        return false;
+                    } else {
+                        num=0;
+                        return false;
+                    }
+                }
+                return true;
+            };
+            //得分
+            this.getGrade = function (nextX, nextY) {
+                if (arrMap[nextX][nextY].value == 1) {
+                    grade += 13;
+                } else if (arrMap[nextX][nextY].value == 5) {
+                    grade += 5;
+                } else if (arrMap[nextX][nextY].value == 7) {
+                    boomCount--;
+                    grade -= 10;
+                }
+            };
+            //判断是否有怪物
+            this.isExitsBoom = function () {
+                for (var a = 0; a < arrMap.length; a++) {
+                    for (var b = 0; b < arrMap[a].length; b++) {
+                        if (arrMap[a][b].value == 7) {
+                            boomCount++;
+                        }
+                    }
+                }
+                return boomCount;
+            };
+            //显示信息
+            this.showMsg = function () {
+                gradeBox.innerHTML = `<div>当前分数是：${grade}</div><div>金钥匙：${doorKey}</div>`;
+            };
+        }
+        var createMap = new computedSize(0, 10, 12);
+        createMap.init();
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+<!-- // var promise = new Promise(function (resolve, reject) {
+    //     for (let a = 0; a < arrMap.length; a++) {
+    //         for (let b = 0; b < arrMap[a].length; b++) {
+    //             if (arrMap[a][b].value != 7) {
+    //                 console.log(66666666);
+    //                 return false;
+    //             }
+    //         }
+    //     }
+    //     resolve();
+    // })
+    // promise.then(res => {
+    //     if (confirm("恭喜你成功通关，确定再来一次吗？")) {
+    //         window.location.reload();
+    //     } else {
+    //         alert("谢谢您的使用，欢迎下次再来！");
+    //         window.close();
+    //     }
+    // }); -->

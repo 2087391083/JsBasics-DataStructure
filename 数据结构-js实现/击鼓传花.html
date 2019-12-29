@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>击鼓传花</title>
+</head>
+
+<body>
+
+    <script>
+        class Queue {
+            constructor() {
+                this.items = [];
+            }
+            size() {
+                return this.items.length;
+            }
+            isEmpty() {
+                if (this.items.length == 0) {
+                    return true;
+                }
+                return false;
+            }
+            push(item) {
+                this.items.push(item);
+            }
+            delQueue() {
+                return this.items.shift();
+            }
+            front() {
+                return this.items[0];
+            }
+            // toString() {
+            //     let str = "";
+            //     for (let i = 0; i < this.items.length; i++) {
+            //         str += this.items[i].ele + ":" + this.items[i].pri + "      ";
+            //     }
+            //     return str;
+            // }
+        }
+        // 原理，假如当前报数为number的同学，则会出队，否则就挪到队列的末尾，实现不断重复的过程
+        function jigu(personNum, number) {
+            var queue = new Queue();
+            for (var i = 1; i <= personNum; i++) {
+                queue.push(i);
+            }
+            let index = 1;
+            while (queue.size() > 1) {
+                if (index % number == 0) {
+                    queue.delQueue();
+                } else {
+                    queue.push(queue.delQueue());
+                }
+                index++;
+            }
+            return queue;
+        }
+        console.log(jigu(5, 3));
+
+    </script>
+</body>
+
+</html>

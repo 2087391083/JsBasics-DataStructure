@@ -1,0 +1,98 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.contianer{
+    width: 500px;
+    height: 600px;
+    background-color: gainsboro;
+    margin: 0 auto;
+    padding: 0 15px;
+    box-sizing: border-box;
+    overflow: scroll;
+}
+.contianer>.chat{
+    padding-bottom: 18px;
+    display: inline-block;
+    position: relative;
+}
+.contianer>.chat p{
+    font-size: 14px;
+    color: gray;
+}
+.contianer .touxiang{
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+}
+.contianer .touxiang>img{
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.contianer .content{
+    display: inline-block;
+    width: 350px;
+    vertical-align: top;
+    padding-left: 15px;
+    box-sizing: border-box;
+}
+.contianer .content>.chatContent{
+    display: inline-block;
+    background-color: white;
+    border-radius: 5px;
+    padding: 8px 9px;
+    font-weight: "黑体","微软雅黑";
+}
+.contianer .content>.chatContent>img{
+    width: 200px;
+    height: 30px;
+}
+.contianer .touxiang::after{
+    content: "";
+    padding: 0;
+    display: inline-block;
+    border: 10px solid transparent;
+    border-right-color: white;
+    position: absolute;
+    top: 27px;
+    left: 46px;
+}
+
+.myChat{
+    width: 100%;
+    position: relative;
+}
+.myTX{
+    float: right;
+    padding-left:20px;
+}
+.myCon{
+    float: right;
+}
+.myCon>p{
+    text-align: right;
+}
+.myCon>.chatContent{
+    float: right;
+    padding: 8px 9px;
+}
+.contianer .myTX::after{
+    content: "";
+    padding: 0;
+    display: inline-block;
+    border: 10px solid transparent;
+    border-left-color: white;
+    position: absolute;
+    top: 27px;
+    left: 404px;
+}
+.chat::after{
+    content: "";
+    display: block;
+    clear: both;
+}
+.contianer::-webkit-scrollbar { 
+    width: 0 !important; 
+}

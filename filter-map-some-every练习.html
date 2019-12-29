@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组方法练习</title>
+</head>
+
+<body>
+    <pre>1、将数组中的商品放到界面上显示</pre>
+    <table id="demo" border="" cellspacing="" cellpadding="">
+        <thead>
+
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <hr>
+
+    <pre>2、将数组中的商品按照价格排序之后放到下表中</pre>
+    <table id="sort" border="" cellspacing="" cellpadding="">
+        <thead>
+            <tr>
+                <th>名称</th>
+                <th>类型</th>
+                <th>价格(￥)</th>
+                <th>颜色</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <hr>
+
+    <pre>3、将数组中价格大于500 的商品放到下表中</pre>
+    <table id="filter" border="" cellspacing="" cellpadding="">
+        <thead>
+            <tr>
+                <th>名称</th>
+                <th>类型</th>
+                <th>价格(￥)</th>
+                <th>颜色</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <hr>
+
+    <pre>4、将数组中的商品价格总和显示到下面文段中：</pre>
+    <p id="forEach"></p>
+    <hr>
+
+    <pre>5、数组中的每一种商品类型都是日用品么?</pre>
+    <p id="every"></p>
+    <hr>
+
+    <pre>6、数组中是不是有日用品类型的商品？</pre>
+    <p id="some"></p>
+    <hr>
+
+    <pre>7、将数组中的第二个到第四个商品显示到下表中</pre>
+    <table id="splice" border="" cellspacing="" cellpadding="">
+        <thead>
+            <tr>
+                <th>名称</th>
+                <th>类型</th>
+                <th>价格(￥)</th>
+                <th>颜色</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <hr>
+
+    <script>
+        var arrProduct = [
+            {
+                name: "衣柜",
+                type: "家具",
+                price: 2000,
+                color: "木制"
+            },
+            {
+                name: "冰箱",
+                type: "家电",
+                price: 8000,
+                color: "purple"
+            },
+            {
+                name: "电视机",
+                type: "家电",
+                price: 10000,
+                color: "black"
+            },
+            {
+                name: "香皂",
+                type: "日用品",
+                price: 20,
+                color: "pink"
+            },
+            {
+                name: "沐浴露",
+                type: "日用品",
+                price: 80,
+                color: "white"
+            },
+            {
+                name: "电饭煲",
+                type: "家电",
+                price: 800,
+                color: "gray"
+            },
+            {
+                name: "四件套",
+                type: "日用品",
+                price: 1200,
+                color: "red"
+            }
+        ];
+
+        function dataPage(newProduct, idValue) {
+            trData = "";
+            for (var trDataIndex = 0; trDataIndex < newProduct.length; trDataIndex++) {
+                trData += "<tr>";
+                for (var trDataObj in newProduct[trDataIndex]) {
+                    trData += `<td> ${newProduct[trDataIndex][trDataObj]} </td>`;
+                }
+                trData += "</tr>";
+            }
+            document.querySelector(`#${idValue}>tbody`).innerHTML = trData;
+        }//共用方法
+
+        var thData = "";
+        thData += "<tr>";
+        for (var th in arrProduct[0]) {
+            thData += `<th> ${th} </th>`;
+        }
+        thData += "</tr>";
+        document.querySelector("#demo>thead").innerHTML = thData;
+
+        dataPage(arrProduct, "demo");//1、将数组中的商品放到界面上显示
+
+        function sortArrProduct(prop){
+            function fn(a,b){
+                return a[prop]-b[prop];
+            }
+            return fn;
+        }
+        var sortArrPro=arrProduct.sort( sortArrProduct("price") );
+        dataPage(sortArrPro,"sort");//2、将数组中的商品按照价格排序之后放到下表中
+
+        function minPriceFn(item,index){
+            return item.price>=500;
+        }
+        var minPriceF=arrProduct.filter( minPriceFn );
+        dataPage(minPriceF,"filter");//3、将数组中价格大于500 的商品放到下表中
+
+        var sum=0;
+        arrProduct.forEach(function (item){
+            sum+=item.price;
+        });
+        document.querySelector("#forEach").innerHTML=sum;//4、将数组中的商品价格总和显示到下面文段中：
+
+        var typePd=arrProduct.every(function(item){
+            return item.type=="日用品";
+        });
+        if(typePd){
+            document.querySelector("#every").innerHTML="是";
+        }else{
+            document.querySelector("#every").innerHTML="否";
+        }//5、数组中的每一种商品类型都是日用品么?
+        
+        var typePd=arrProduct.some(function(item){
+            return item.type=="日用品";
+        });
+        if(typePd){
+            document.querySelector("#some").innerHTML="是";
+        }else{
+            document.querySelector("#some").innerHTML="否";
+        } //6、数组中是不是有日用品类型的商品？
+
+        var spliceArrProduct=arrProduct.splice(1,3);
+        dataPage(spliceArrProduct,"splice");//7、将数组中的第二个到第四个商品显示到下表中
+    </script>
+</body>
+
+</html>
